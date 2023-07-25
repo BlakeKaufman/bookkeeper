@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../../assets/css/index.css" />
+    <link rel="stylesheet" href="./index.css" />
+
+    <title>Start your library</title>
+  </head>
+  <body>
+    <div id="root">
+      <div class="books_admin">
+        <div class="top_bar">
+          <div class="content_container">
+            <span>Edit</span>
+            <span class="selected_nav">Bookkeeper</span>
+            <span>+</span>
+          </div>
+          <!-- needs to be conditialy renderd -->
+        </div>
+        <div class="books_content">
+          <h1>Bookkeeper</h1>
+          <section class="option_container reading_now">
+            <div class="top">
+              <span>Reading Now</span>
+              <div class="icon"></div>
+            </div>
+            <div class="books_container">
+              <div class="scroll_container">
+                <div class="book">
+                  <div class="img">
+                    <img src="" alt="" />
+                  </div>
+                  <span class="pages_left">100pg left</span>
+                  <div class="bar"><div class="fill"></div></div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="option_container library">
+            <div class="top">
+              <span>Library</span>
+              <div class="icon"></div>
+            </div>
+            <div class="catagory_container">
+              <div class="catagory">
+                <div class="icon"></div>
+                <span>Library</span>
+                <span class="num_books">2</span>
+                <span class="arrow">></span>
+              </div>
+              <div class="catagory">
+                <div class="icon"></div>
+                <span>To Read</span>
+                <span class="num_books">2</span>
+                <span class="arrow">></span>
+              </div>
+              <div class="catagory">
+                <div class="icon"></div>
+                <span>Reading now</span>
+                <span class="num_books">2</span>
+                <span class="arrow">></span>
+              </div>
+              <div class="catagory">
+                <div class="icon"></div>
+                <span>Finished</span>
+                <span class="num_books">2</span>
+                <span class="arrow">></span>
+              </div>
+              <div class="catagory">
+                <div class="icon"></div>
+                <span>Abandoned</span>
+                <span class="num_books">2</span>
+                <span class="arrow">></span>
+              </div>
+              <div class="catagory">
+                <div class="icon"></div>
+                <span>Starred</span>
+                <span class="num_books">2</span>
+                <span class="arrow">></span>
+              </div>
+            </div>
+          </section>
+          <section class="option_container collections">
+            <div class="top">
+              <span>Collections</span>
+              <div class="icon"></div>
+            </div>
+            <div class="catagory_container">
+              <div class="catagory">
+                <div class="icon"></div>
+                <span>Test</span>
+                <span class="num_books">1</span>
+                <span>></span>
+              </div>
+              <div class="add_new_collection catagory">
+                <span>+</span><span>New collection</span>
+              </div>
+            </div>
+          </section>
+          <section class="option_container authors">
+            <div class="top">
+              <span>Authors</span>
+              <div class="icon"></div>
+            </div>
+            <div class="catagory_container">
+              <div class="catagory">
+                <div class="icon"></div>
+                <span>Author name</span>
+                <span class="num_books">1</span>
+                <span>></span>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="nav_bar">
+          <ul class="nav_container">
+            <li class="nav_item">
+              <div class="icon"></div>
+              <span>Books</span>
+              <div class="screen books"></div>
+            </li>
+            <li class="nav_item">
+              <div class="icon"></div>
+              <span>Cards</span>
+              <div class="screen cards"></div>
+            </li>
+            <li class="nav_item">
+              <div class="icon"></div>
+              <span>Stats</span>
+              <div class="screen stats"></div>
+            </li>
+          </ul>
+        </div>
+
+        <section class="book_info_popup">
+          <div class="topbar">
+            <div class="top">
+              <span>back</span
+              ><span class="book_tittle"><span>The fifth miracle</span></span>
+              <span>+</span>
+              <div class="icon"></div>
+            </div>
+            <ul class="nav_container">
+              <li class="nav_item active_item">book</li>
+              <li class="nav_item">Cards</li>
+              <li class="nav_item">Trends</li>
+              <li class="nav_item">Sessions</li>
+              <li class="nav_item">About</li>
+              <div class="underline"></div>
+            </ul>
+          </div>
+          <section class="selected_book">
+            <div class="img"></div>
+            <h2>The fifth miracle</h2>
+            <span class="author_name">Author</span>
+            <div class="book_options">
+              <div class="option">
+                <div class="icon"></div>
+                <span>Reading Mode</span>
+              </div>
+              <div class="option">
+                <div class="icon"></div>
+                <span>Reading</span>
+              </div>
+              <div class="option">
+                <div class="icon"></div>
+                <span>Book Chat</span>
+              </div>
+            </div>
+          </section>
+          <section class="book_facts">
+            <div class="slice"></div>
+            <div class="basic_infos">
+              <div class="info">
+                <span>Started</span><span>Jul 24, 23</span>
+              </div>
+              <div class="info"><span>Finished</span><span>Add Date</span></div>
+              <div class="info"><span>Rating</span><span>Add Rating</span></div>
+            </div>
+            <div class="cards facts_container">
+              <div class="top">
+                <h1>Cards</h1>
+                <span class="num_cards">0</span>
+                <span>Edit</span>
+              </div>
+              <div class="nav_scroll_container">
+                <ul class="nav_container">
+                  <li class="nav_item">Sort</li>
+                  <li class="nav_item">All Cards</li>
+                  <li class="nav_item">Starred</li>
+                  <li class="nav_item">Notes</li>
+                  <li class="nav_item">Clash Cards</li>
+                  <li class="nav_item">Quotes</li>
+                  <li class="nav_item">Definishions</li>
+                </ul>
+              </div>
+              <div class="cards_continer">
+                <div class="no_cards">
+                  <div class="icon"></div>
+                  <span>No Cards</span>
+                  <span
+                    >Add cards using the + button and they will appear
+                    here.</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="stats_trends facts_container">
+              <div class="top">
+                <h1>Stats & Trends</h1>
+              </div>
+              <div class="stats_container">
+                <div class="nav">
+                  <span>Pages Read</span>
+                  <span>Reading Time</span>
+                  <div class="background"></div>
+                </div>
+                <div class="graph"></div>
+                <div class="stats">
+                  <div>
+                    <span>Reading Time</span>
+                    <span>30m</span>
+                  </div>
+                  <div>
+                    <span>Est. time left</span>
+                    <span>60m</span>
+                  </div>
+                  <div>
+                    <span>Pages read</span>
+                    <span>150</span>
+                  </div>
+                  <div>
+                    <span>Longest streak</span>
+                    <span>1 day</span>
+                  </div>
+                  <div>
+                    <span>Pages/hour</span>
+                    <span>298.0</span>
+                  </div>
+                  <div>
+                    <span>Pages/min</span>
+                    <span>5.0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reading_sessions facts_container">
+              <div class="top">
+                <h1>Reading Sessions</h1>
+                <span class="num_sessions">1</span>
+              </div>
+              <div class="sessions_container">
+                <div class="session">
+                  <div class="icon"></div>
+                  <span>July 24, 2023</span>
+                  <span>30m</span>
+                  <span>></span>
+                </div>
+              </div>
+            </div>
+            <div class="about facts_container">
+              <div class="top">
+                <h1>About</h1>
+              </div>
+              <div class="about_container">
+                <span class="description"
+                  >Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Quod optio ex fugit debitis, laudantium voluptate sunt totam,
+                  voluptatem ullam mollitia itaque voluptatum, nemo ad. Velit
+                  quaerat recusandae atque beatae. Modi?</span
+                >
+                <div>
+                  <span>Publisher</span>
+                  <span>Penguin Publishing Group</span>
+                </div>
+                <div>
+                  <span>Published</span>
+                  <span>2015</span>
+                </div>
+                <div>
+                  <span>ISBN</span>
+                  <span>9872979712937234</span>
+                </div>
+                <div>
+                  <span>Pages</span>
+                  <span>445</span>
+                </div>
+                <div>
+                  <span>Category</span>
+                  <span>Medical, PHYCHOLOGY, Psychology</span>
+                </div>
+              </div>
+            </div>
+
+            <a class="buy_CTA">Buy on Amazon</a>
+          </section>
+        </section>
+      </div>
+
+      <!-- root -->
+    </div>
+  </body>
+</html>

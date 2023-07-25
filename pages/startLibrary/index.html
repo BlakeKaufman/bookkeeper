@@ -18,12 +18,12 @@
   </head>
   <body>
     <div id="root">
-      <div class="reminder">
+      <div class="start_library">
         <div class="content">
           <div class="topbar">
             <span class="back_BTN">Back</span>
             <h1>Start your library</h1>
-            <div class="add_book">
+            <div class="add_book_btns">
               <div class="icon"></div>
               <div class="icon"></div>
             </div>
@@ -47,7 +47,148 @@
             <span class="continue_BTN">Finish</span>
           </div>
         </div>
+        <!-- add book popup -->
+
+        <div class="add_book_popup">
+          <div class="add_book">
+            <div class="topbar">
+              <h1>Add book</h1>
+              <div class="icon"></div>
+            </div>
+            <div class="scroll_container">
+              <section class="cover_image options_container">
+                <span class="section_title">Cover image</span>
+                <div class="container">
+                  <div class="upload_box">
+                    <span class="upload_icon">+</span>
+                  </div>
+                  <span class="upload_span">Upload</span>
+                </div>
+              </section>
+              <section class="progress_type options_container">
+                <span class="section_title">Progress type</span>
+                <div class="container">
+                  <div class="type_container">
+                    <span class="type">Pages</span>
+                    <span class="type">Percent</span>
+                    <span class="type">Time</span>
+                    <div class="active_option"></div>
+                  </div>
+                  <div class="progress_input">
+                    <span class="progress_type_span">Page count</span>
+                    <span contenteditable="true" class="input">0</span>
+                  </div>
+                </div>
+              </section>
+              <section
+                class="book_details selection_containers options_container"
+              >
+                <span class="section_title">Book details</span>
+                <div class="container">
+                  <div class="detail">
+                    <span>Title</span>
+                    <input
+                      type="text"
+                      class="book_detail_input title"
+                      placeholder="Title (Required)"
+                    />
+                    <div class="screen title"></div>
+                  </div>
+                  <div class="detail">
+                    <span>Author</span>
+                    <input
+                      type="text"
+                      class="book_detail_input Author"
+                      placeholder="Author (Required)"
+                    />
+                  </div>
+                  <div class="detail">
+                    <span>Publisher</span>
+                    <input
+                      type="text"
+                      class="book_detail_input Publisher"
+                      placeholder="Publisher"
+                    />
+                  </div>
+                  <div class="detail">
+                    <span>Publication Year</span>
+                    <input
+                      type="number"
+                      class="book_detail_input Publication"
+                      placeholder="Publication year"
+                    />
+                  </div>
+                  <div class="detail">
+                    <span>Categories</span>
+                    <input
+                      type="text"
+                      class="book_detail_input Categories"
+                      placeholder="Categories"
+                    />
+                  </div>
+                  <div class="detail">
+                    <span>ISBN</span>
+                    <input
+                      type="text"
+                      class="book_detail_input ISBN"
+                      placeholder="ISBN"
+                    />
+                  </div>
+                  <div class="detail">
+                    <textarea
+                      class="book_detail_input Description"
+                      cols="30"
+                      rows="10"
+                      placeholder="Description"
+                    ></textarea>
+                  </div>
+                </div>
+              </section>
+              <section
+                class="reading_status selection_containers options_container"
+              >
+                <span class="section_title">Reading status</span>
+                <div class="container">
+                  <div class="detail">
+                    <span
+                      ><div class="icon"></div>
+                      To Read
+                    </span>
+                    <div class="icon"></div>
+                    <div class="screen to_read"></div>
+                  </div>
+                  <div class="detail">
+                    <span
+                      ><div class="icon"></div>
+                      Reading
+                    </span>
+                    <div class="icon"></div>
+                    <div class="screen reading"></div>
+                  </div>
+                  <div class="detail">
+                    <span
+                      ><div class="icon"></div>
+                      Finished
+                    </span>
+                    <div class="icon"></div>
+                    <div class="screen finsihed"></div>
+                  </div>
+                  <div class="detail">
+                    <span
+                      ><div class="icon"></div>
+                      Abandoned
+                    </span>
+                    <div class="icon"></div>
+                    <div class="screen abandoned"></div>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <div class="add_book_BTN"><span>Add to library</span></div>
+          </div>
+        </div>
       </div>
+      <!-- root -->
     </div>
   </body>
 </html>
