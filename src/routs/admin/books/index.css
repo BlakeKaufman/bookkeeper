@@ -14,7 +14,7 @@
 .books_admin .books_content {
   width: 95%;
   height: calc(100% - 50px - 65px);
-  overflow: scroll;
+  overflow: hidden scroll;
   margin: 50px auto 65px;
 }
 .books_admin h1 {
@@ -65,13 +65,12 @@
 .books_admin .option_container .top .icon {
   width: 20px;
   height: 20px;
-
-  background-color: black;
+  transition: transform 0.4s ease-in;
 }
 /* global_catagory_styling */
 .books_admin .option_container .catagory_container {
   width: 100%;
-  height: fit-content;
+  height: 100%;
   background-color: white;
 
   border-radius: 10px;
@@ -79,6 +78,10 @@
   padding: 10px 15px;
 
   box-shadow: 0 0 5px 0 gainsboro;
+
+  overflow: hidden;
+
+  transition: all 0.6s;
 }
 .books_admin .option_container .catagory_container .catagory {
   width: 100%;
@@ -956,4 +959,19 @@
   width: 20px;
 
   background-color: black;
+}
+
+/* CHANGING LOAD START LIBRARY STYING FOR BOOKS PAGE */
+.books_admin .start_library {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  z-index: 99;
+
+  background-color: var(--main_background_color);
+
+  transition: left 0.6s;
+}
+.books_admin .start_library h1 {
+  margin: unset;
 }

@@ -7,7 +7,7 @@ import barcodeIcon from "../../../assets/images/icons/barcode-read.svg";
 import AddBookPopup from "./components/customBook";
 import ScanBaracodePopup from "./components/scanBarcode";
 
-export default function LoadStartLibrary() {
+export default function LoadStartLibrary(props) {
   const [popupDisplayed, setPopupDisplayed] = useState([
     {
       name: "customBook",
@@ -29,11 +29,20 @@ export default function LoadStartLibrary() {
     );
   }
 
+  const popupStyle = !!props.toggleFunction
+    ? {
+        left: props.isDisplayed ? "0" : "100%",
+      }
+    : {}; // admin books page to popin and out
+
   return (
-    <div className="start_library">
+    <div style={popupStyle} className="start_library">
       <div className="content">
         <div className="topbar">
-          <LoadBackButton path={"reminder"} />
+          <LoadBackButton
+            toggleFunction={props.toggleFunction}
+            path={"reminder"}
+          />
           <h1>Start your library</h1>
           <div className="add_book_btns">
             <div onClick={togglePopup} className="icon">

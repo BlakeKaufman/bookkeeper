@@ -3,9 +3,8 @@ import angleLeft from "../../../../../assets/images/icons/angle-small-left.svg";
 export default function LoadSelectedCategoryPage(props) {
   const filterdBooksStyle = {
     left: props.isDisplayed ? "0" : "100%",
-    top: window.pageYOffset,
   };
-  console.log(window.pageYOffset);
+
   return (
     <section style={filterdBooksStyle} className="filtered_books_page">
       <div className="top">

@@ -1,7 +1,7 @@
 import "./index.css";
 import { useState } from "react";
 
-import angleRightIcon from "../../../assets/images/icons/angle-right.svg";
+import angleLeftIcon from "../../../assets/images/icons/angle-small-left.svg";
 
 import CategoryOption from "./components/categoryOption";
 import bookMark from "../../../assets/images/icons/bookmark.svg";
@@ -15,6 +15,8 @@ import LoadBooksCategorySection from "./components/categorySection";
 import LoadBottomNavAdmin from "../components/bottomNav";
 import LoadBookInfoPopup from "./components/bookInfoPopup";
 import LoadSelectedCategoryPage from "./components/selectedCategoryPage";
+import LoadAddCollectionPopup from "./components/addCollectionPopup";
+import LoadStartLibrary from "../../login/startLibrary";
 
 const libraryOptions = [
   { name: "Library", icon: bookShelf },
@@ -37,6 +39,15 @@ export default function LoadAdminBooks() {
   const [bookInfoDiplayed, setBookInfoDisplayed] = useState(false);
   const [selectedCategoryDisplayed, setSelectedCategoryDisplayed] =
     useState(false);
+  const [showCategory, setShowCategory] = useState([
+    { name: "library", isDisplayed: false },
+    { name: "collections", isDisplayed: false },
+    { name: "categories", isDisplayed: false },
+    { name: "authors", isDisplayed: false },
+  ]);
+  const [addCollectionPopup, setAddCollectionPopup] = useState(false);
+  const [addBookPopup, setAddBookPopup] = useState(false);
+
   function toggleBookInfo() {
     setBookInfoDisplayed((prevDisplay) => !prevDisplay);
   }
@@ -44,7 +55,26 @@ export default function LoadAdminBooks() {
     setSelectedCategoryDisplayed((prevDisplay) => !prevDisplay);
   }
 
-  console.log(selectedCategoryDisplayed);
+  function toggleShowCategory(event) {
+    const clickedDropdown = event.target.className;
+
+    setShowCategory((prevOptions) =>
+      prevOptions.map((option) => {
+        if (option.name === clickedDropdown)
+          return { ...option, isDisplayed: !option.isDisplayed };
+        else return option;
+      })
+    );
+  }
+
+  function toggleAddCollection() {
+    setAddCollectionPopup((prev) => !prev);
+  }
+  function toggleAddBook(event) {
+    event.preventDefault();
+    setAddBookPopup((prev) => !prev);
+  }
+
   const libraryElements = libraryOptions.map((option) => {
     return (
       <CategoryOption
@@ -97,7 +127,7 @@ export default function LoadAdminBooks() {
         <div className="content_container">
           <span>Edit</span>
           <span className="selected_nav">Bookkeeper</span>
-          <span>+</span>
+          <span onClick={toggleAddBook}>+</span>
         </div>
         {/* <!-- needs to be conditialy renderd --> */}
       </div>
@@ -106,7 +136,6 @@ export default function LoadAdminBooks() {
         <section className="option_container reading_now">
           <div className="top">
             <span>Reading Now</span>
-            <div className="icon"></div>
           </div>
           <div className="books_container">
             <div className="scroll_container">
@@ -124,16 +153,35 @@ export default function LoadAdminBooks() {
           </div>
         </section>
         {/* elemtns start */}
-        <LoadBooksCategorySection name="Library" elements={libraryElements} />
         <LoadBooksCategorySection
+          isOpen={showCategory}
+          icon={angleLeftIcon}
+          name="Library"
+          elements={libraryElements}
+          toggleFunction={toggleShowCategory}
+        />
+        <LoadBooksCategorySection
+          isOpen={showCategory}
+          icon={angleLeftIcon}
           name="Collections"
           elements={collectionElements}
+          toggleFunction={toggleShowCategory}
+          popupFunction={toggleAddCollection}
         />
         <LoadBooksCategorySection
+          isOpen={showCategory}
+          icon={angleLeftIcon}
           name="Categories"
           elements={categoryElements}
+          toggleFunction={toggleShowCategory}
         />
-        <LoadBooksCategorySection name="Authors" elements={authorElements} />
+        <LoadBooksCategorySection
+          isOpen={showCategory}
+          icon={angleLeftIcon}
+          name="Authors"
+          elements={authorElements}
+          toggleFunction={toggleShowCategory}
+        />
         {/* elemtns end */}
       </div>
       <LoadBottomNavAdmin />
@@ -145,6 +193,15 @@ export default function LoadAdminBooks() {
       <LoadSelectedCategoryPage
         isDisplayed={selectedCategoryDisplayed}
         togglePopup={toggleSelectedCategory}
+      />
+      <LoadAddCollectionPopup
+        toggleFunction={toggleAddCollection}
+        isDisplayed={addCollectionPopup}
+      />
+
+      <LoadStartLibrary
+        toggleFunction={toggleAddBook}
+        isDisplayed={addBookPopup}
       />
     </div>
   );
