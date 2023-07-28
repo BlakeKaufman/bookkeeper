@@ -1,0 +1,14 @@
+#back_Container {
+  display: flex;
+  align-items: center;
+
+  position: absolute;
+  top: 25px;
+  left: 5px;
+  font-size: 25px;
+  cursor: pointer;
+}
+#back_Container .icon {
+  width: 30px;
+  height: 30px;
+}
