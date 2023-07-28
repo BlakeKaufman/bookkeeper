@@ -7,6 +7,7 @@
 
   top: 100%;
   left: 0;
+
   position: absolute;
 
   background-color: rgb(243, 243, 243);
@@ -15,12 +16,14 @@
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   transition: top 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .start_library .add_book {
   height: 100%;
   width: 100%;
+  max-width: 500px;
 
   display: flex;
   flex-direction: column;

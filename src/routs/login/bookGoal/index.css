@@ -71,7 +71,8 @@
 }
 
 .book-goal .reading_time {
-  width: max-content;
+  width: 100%;
+  max-width: max-content;
   display: flex;
   align-items: center;
 

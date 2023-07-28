@@ -83,6 +83,7 @@ export default function AddBookPopup(props) {
           <div onClick={props.togglePopup} className="icon">
             <img
               src={closeIcon}
+              className="customBook"
               alt="close icon to close custom book section"
             />
           </div>
