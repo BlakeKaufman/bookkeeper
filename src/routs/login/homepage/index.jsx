@@ -1,4 +1,5 @@
 import backgroundImage from "../../../assets/bookshelf_background.webp";
+import LoginButton from "../../../components/authO/login";
 import "./index.css";
 
 export default function LoadLandingPage() {
@@ -18,9 +19,10 @@ export default function LoadLandingPage() {
         <a href="/login/bookGoal" className="CTAButton">
           Get Started
         </a>
-        <a href={"./pages/bookgoal/index.html"} className="CTAButton">
+        {/* <a href={"./pages/bookgoal/index.html"} className="CTAButton">
           Login
-        </a>
+        </a> */}
+        <LoginButton />
         <p>Privacy-first. No signup required</p>
       </div>
     </div>

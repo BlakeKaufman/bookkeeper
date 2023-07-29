@@ -21,6 +21,11 @@
   justify-content: center;
   align-items: center;
   position: relative;
+
+  opacity: 0.5;
+}
+.nav_bar .active {
+  opacity: 1;
 }
 .nav_bar .nav_item .icon {
   width: 30px;

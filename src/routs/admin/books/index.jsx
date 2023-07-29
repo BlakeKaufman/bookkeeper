@@ -11,12 +11,14 @@ import check from "../../../assets/images/icons/check.svg";
 import trash from "../../../assets/images/icons/trash.svg";
 import folderIcon from "../../../assets/images/icons/folder.svg";
 import userIcon from "../../../assets/images/icons/folder.svg";
+import plusIcon from "../../../assets/images/icons/plus.svg";
 import LoadBooksCategorySection from "./components/categorySection";
 import LoadBottomNavAdmin from "../components/bottomNav";
 import LoadBookInfoPopup from "./components/bookInfoPopup";
 import LoadSelectedCategoryPage from "./components/selectedCategoryPage";
 import LoadAddCollectionPopup from "./components/addCollectionPopup";
 import LoadStartLibrary from "../../login/startLibrary";
+import AdminTopBar from "../components/topbar";
 
 const libraryOptions = [
   { name: "Library", icon: bookShelf },
@@ -123,14 +125,12 @@ export default function LoadAdminBooks() {
 
   return (
     <div style={booksAdminStyle} className="books_admin">
-      <div className="top_bar">
-        <div className="content_container">
-          <span>Edit</span>
-          <span className="selected_nav">Bookkeeper</span>
-          <span onClick={toggleAddBook}>+</span>
-        </div>
-        {/* <!-- needs to be conditialy renderd --> */}
-      </div>
+      <AdminTopBar
+        name="Bookkeeper"
+        clickEvent={toggleAddBook}
+        icon={plusIcon}
+      />
+
       <div className="books_content">
         <h1>Bookkeeper</h1>
         <section className="option_container reading_now">
@@ -184,7 +184,7 @@ export default function LoadAdminBooks() {
         />
         {/* elemtns end */}
       </div>
-      <LoadBottomNavAdmin />
+      <LoadBottomNavAdmin activeNav={"books"} />
 
       <LoadBookInfoPopup
         isDisplayed={bookInfoDiplayed}
