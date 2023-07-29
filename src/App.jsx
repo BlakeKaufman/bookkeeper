@@ -13,24 +13,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 
 function App() {
-  console.log(useAuth0());
-
+  // useEffect(() => {
+  //   fetch("/api")
+  //     .then((respone) => respone.json())
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
   return (
     <Routes>
       <Route path="/" element={<LoadLandingPage />} />
       <Route path="/login/bookGoal" element={<LoadBookGoal />} />
       <Route path="/login/reminder" element={<LoadReminder />} />
       <Route path="/login/startLibrary" element={<LoadStartLibrary />} />
-      {false ? (
-        <Route path="/admin/books" element={<LoadAdminBooks />} />
-      ) : (
-        <Route path="/admin/books" element={<LoadLandingPage />} />
-      )}
-      {false ? (
-        <Route path="/admin/stats" element={<LoadStatsAdmin />} />
-      ) : (
-        <Route path="/admin/stats" element={<LoadLandingPage />} />
-      )}
+      <Route path="/admin/books" element={<LoadAdminBooks />} />
+
+      <Route path="/admin/stats" element={<LoadStatsAdmin />} />
     </Routes>
   );
 }
