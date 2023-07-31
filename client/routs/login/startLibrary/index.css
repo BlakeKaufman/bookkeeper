@@ -93,9 +93,14 @@
   display: flex;
   flex-wrap: wrap;
 
-  background-color: black;
   border-radius: 10px;
   margin: 5px;
+  object-fit: cover;
+  object-position: center;
+}
+.start_library .suggested_books .books_container .book img {
+  height: 100%;
+  width: 100%;
 }
 
 /* continue button */

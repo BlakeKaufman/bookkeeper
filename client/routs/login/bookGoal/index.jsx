@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 import crossHairsIcon from "../../../assets/images/icons/location-crosshairs.svg";
 import flagIcon from "../../../assets/images/icons/flag.svg";
 import LoadBackButton from "../../../components/loginPathBack";
 
 import "./index.css";
-import { Link } from "react-router-dom/dist";
+
 import LoginPathContinue from "../../../components/loginPathContinue";
 
 export default function LoadBookGoal() {
+  const { user } = useAuth0();
+  const navigate = useNavigate();
+
   const [bookGoal, setBookGoal] = useState(0);
   const AVGBOOKLENGTH = 200; //pages
   const AVGPAGEREADINGSPEED = 0.75; //mins
@@ -30,6 +34,16 @@ export default function LoadBookGoal() {
     const topMins = Math.ceil(dailyMins);
 
     return [bottomMins, topMins];
+  }
+
+  function createUserProfile() {
+    let userProfile = {};
+
+    userProfile["user_name"] = user.sub;
+    userProfile["book_goal"] = bookGoal;
+
+    localStorage.setItem("userProfile", JSON.stringify(userProfile));
+    navigate("/login/reminder");
   }
   changeGoalText();
   return (
@@ -74,7 +88,7 @@ export default function LoadBookGoal() {
           </div>
         </div>
 
-        <LoginPathContinue path="/login/reminder" />
+        <LoginPathContinue onClick={createUserProfile} />
       </div>
     </div>
   );

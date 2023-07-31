@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
-import authINfo from "../auth0APIinformation.json";
+import auth0Info from "../auth0APIinformation.json";
 
 import App from "./App.jsx";
 
@@ -22,8 +22,8 @@ changeBodyHeight();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Auth0Provider
-      domain={authINfo.domain}
-      clientId={authINfo.client_id}
+      domain={auth0Info.domain}
+      clientId={auth0Info.client_id}
       authorizationParams={{
         redirect_uri: window.location.origin,
       }}
