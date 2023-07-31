@@ -1,0 +1,38 @@
+/* nav bar */
+.nav_bar {
+  width: 100%;
+  height: 65px;
+  background-color: rgb(220, 220, 220);
+
+  position: absolute;
+  bottom: 0;
+}
+.nav_bar .nav_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.nav_bar .nav_item {
+  width: max-content;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  opacity: 0.5;
+}
+.nav_bar .active {
+  opacity: 1;
+}
+.nav_bar .nav_item .icon {
+  width: 30px;
+  height: 30px;
+
+  margin-bottom: 5px;
+}
+.nav_bar .nav_item span {
+  font-size: 12px;
+}
