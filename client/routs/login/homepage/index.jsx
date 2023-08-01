@@ -5,9 +5,17 @@ import backgroundImage from "../../../assets/bookshelf_background.webp";
 import "./index.css";
 import SignUp from "../../../../auth0/signup";
 import RedirectPage from "../../../../auth0/loginSignupRedirect";
+import { useEffect, useState } from "react";
 
 export default function LoadLandingPage() {
-  RedirectPage();
+  const [buttonType, setButtonType] = useState("");
+  useEffect(() => {
+    const clickedButton = JSON.parse(localStorage.getItem("buttonType"));
+    setButtonType(clickedButton);
+  }, []);
+
+  RedirectPage(buttonType);
+
   return (
     <div className="landing-page">
       <img

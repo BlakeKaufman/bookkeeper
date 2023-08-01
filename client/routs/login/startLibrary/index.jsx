@@ -1,15 +1,36 @@
 import "./index.css";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import LoadBackButton from "../../../components/loginPathBack";
 import editIcon from "../../../assets/images/icons/edit.svg";
 import barcodeIcon from "../../../assets/images/icons/barcode-read.svg";
-import AddBookPopup from "./components/customBook";
+import LoadAddBookPopup from "./components/customBook";
 import ScanBaracodePopup from "./components/scanBarcode";
 import LoadSuggestedBook from "./components/suggested_book";
 
 import LoadingAnimation from "../../../components/loadingAnimation";
+
+const suggestedBooksOBJ = [
+  { id: "0525478817" },
+  { id: "0062024035" },
+  { id: "0375969020" },
+  { id: "0545663261" },
+  { id: "0297859382" },
+  { id: "0804139024" },
+  { id: "1476746583" },
+  { id: "030788743X" },
+  { id: "1406356883" },
+  { id: "0385534639" },
+  { id: "9781423113393" },
+  { id: "0553801473" },
+  { id: "1547601329" },
+  { id: "0062059939" },
+  { id: "1250012570" },
+  { id: "9781509803156" },
+  { id: "1410477762" },
+  { id: "1594744769" },
+];
 
 export default function LoadStartLibrary(props) {
   const [popupDisplayed, setPopupDisplayed] = useState([
@@ -19,15 +40,16 @@ export default function LoadStartLibrary(props) {
     },
     { name: "barcodeScanner", open: false },
   ]);
-  const [suggestedBooks, setSuggestedBooks] = useState([]);
-  const [bookInformation, setBookInformation] = useState(0); //used to set book informatiun from barcode scan
-  const navigate = useNavigate();
+  const [suggestedBooks, setSuggestedBooks] = useState(suggestedBooksOBJ);
+  const [bookInformation, setBookInformation] = useState([]); //used to set book informatiun from barcode scan
+  const { user } = useAuth0();
 
   function togglePopup(event) {
     const clickedOption = event.target.classList[0];
 
     setPopupDisplayed((prevDisplay) =>
       prevDisplay.map((option) => {
+        if (option.name === "customBook" && option.open) setBookInformation(0);
         if (option.name === clickedOption)
           return { ...option, open: !option.open };
         else return option;
@@ -46,18 +68,32 @@ export default function LoadStartLibrary(props) {
         else return option;
       });
     });
-    setBookInformation(bookID);
+    setBookInformation([bookID, event.target.src]);
   }
 
-  useEffect(() => {
-    console.log("test");
+  function addBookToDB() {
+    console.log("added to db");
+    console.log(bookInformation);
+    console.log(user);
+    const requestBody = {
+      user: user?.sub,
+      bookISBN: bookInformation[0],
+    };
+    const options = {
+      method: "POST", // HTTP method (GET, POST, PUT, DELETE, etc.)
+      headers: {
+        "Content-Type": "application/json", // Set the content type to JSON since we're sending JSON data
+      },
+      body: JSON.stringify(requestBody), // Convert the request body to JSON string
+    };
 
     fetch(
-      "https://openlibrary.org/subjects/fiction.json?published_in=2000-2020"
+      "http://localhost:8888/.netlify/functions/database_injection",
+      options
     )
       .then((response) => response.json())
-      .then((data) => setSuggestedBooks(data.works));
-  }, []);
+      .then((data) => console.log(data));
+  }
 
   const popupStyle = !!props.toggleFunction
     ? {
@@ -104,14 +140,7 @@ export default function LoadStartLibrary(props) {
         />
         <div className="suggested_books">
           <h1>Suggested books</h1>
-          <div className="books_container">
-            {suggestedBooksElements}
-            {/* <div className="book"></div>
-            <div className="book"></div>
-            <div className="book"></div> */}
-
-            <LoadingAnimation isDisplayed={suggestedBooks} />
-          </div>
+          <div className="books_container">{suggestedBooksElements}</div>
         </div>
         <div className="continue_container">
           <span onClick={addUserToDB} className="continue_BTN">
@@ -124,10 +153,12 @@ export default function LoadStartLibrary(props) {
       </div>
       {/* popup */}
 
-      <AddBookPopup
+      <LoadAddBookPopup
         popupDisplayed={popupDisplayed[0].open}
         togglePopup={togglePopup}
-        bookId={bookInformation}
+        bookInformation={bookInformation}
+        setBookInformation={setBookInformation}
+        addBookToDB={addBookToDB}
       />
       <ScanBaracodePopup
         popupDisplayed={popupDisplayed[1].open}

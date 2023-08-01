@@ -32,6 +32,9 @@
 .start_library .add_book .topbar h1 {
   margin: auto;
 }
+.start_library .add_book .topbar {
+  padding: 10px;
+}
 
 .start_library .add_book .scroll_container {
   height: calc(100% - 60px - 80px);
@@ -74,6 +77,16 @@
   justify-content: center;
 
   margin-left: 10px;
+
+  object-fit: cover;
+  object-position: center;
+
+  overflow: hidden;
+}
+
+.start_library .add_book .cover_image .upload_box img {
+  height: 100%;
+  width: 100%;
 }
 .start_library .add_book .cover_image .upload_box span {
   font-size: 35px;

@@ -97,6 +97,8 @@
   margin: 5px;
   object-fit: cover;
   object-position: center;
+
+  overflow: hidden;
 }
 .start_library .suggested_books .books_container .book img {
   height: 100%;
