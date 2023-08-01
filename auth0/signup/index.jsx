@@ -7,6 +7,7 @@ export default function SignUp() {
     loginWithRedirect({
       screen_hint: "signup", // This indicates that the user should see the sign-up screen
     });
+    localStorage.setItem("buttonType", JSON.stringify("signUp"));
   };
 
   return <button onClick={handleSignUp}>Get Started</button>;
