@@ -1,6 +1,5 @@
 import "./index.css";
 import { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 
 import LoadBackButton from "../../../components/loginPathBack";
 import editIcon from "../../../assets/images/icons/edit.svg";
@@ -42,7 +41,6 @@ export default function LoadStartLibrary(props) {
   ]);
   const [suggestedBooks, setSuggestedBooks] = useState(suggestedBooksOBJ);
   const [bookInformation, setBookInformation] = useState([]); //used to set book informatiun from barcode scan
-  const { user } = useAuth0();
 
   function togglePopup(event) {
     const clickedOption = event.target.classList[0];
@@ -69,30 +67,6 @@ export default function LoadStartLibrary(props) {
       });
     });
     setBookInformation([bookID, event.target.src]);
-  }
-
-  function addBookToDB() {
-    console.log("added to db");
-    console.log(bookInformation);
-    console.log(user);
-    const requestBody = {
-      user: user?.sub,
-      bookISBN: bookInformation[0],
-    };
-    const options = {
-      method: "POST", // HTTP method (GET, POST, PUT, DELETE, etc.)
-      headers: {
-        "Content-Type": "application/json", // Set the content type to JSON since we're sending JSON data
-      },
-      body: JSON.stringify(requestBody), // Convert the request body to JSON string
-    };
-
-    fetch(
-      "http://localhost:8888/.netlify/functions/database_injection",
-      options
-    )
-      .then((response) => response.json())
-      .then((data) => console.log(data));
   }
 
   const popupStyle = !!props.toggleFunction
@@ -158,7 +132,6 @@ export default function LoadStartLibrary(props) {
         togglePopup={togglePopup}
         bookInformation={bookInformation}
         setBookInformation={setBookInformation}
-        addBookToDB={addBookToDB}
       />
       <ScanBaracodePopup
         popupDisplayed={popupDisplayed[1].open}

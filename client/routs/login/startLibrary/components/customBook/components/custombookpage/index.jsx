@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import closeIcon from "../../../../../../../assets/images/icons/close.svg";
 import bookMark from "../../../../../../../assets/images/icons/bookmark.svg";
@@ -6,6 +7,8 @@ import book from "../../../../../../../assets/images/icons/book.svg";
 import check from "../../../../../../../assets/images/icons/check.svg";
 import trash from "../../../../../../../assets/images/icons/trash.svg";
 import LoadReadingStatusOptions from "../../../readingStatus";
+import AddBookFormValidation from "../formValidation";
+import AddBookSubmitForm from "../submitForm";
 
 const readingStatusOptions = [
   { name: "To Read", icon: bookMark, isSelected: true },
@@ -18,11 +21,20 @@ export default function AddBookPopup(props) {
   const [progressType, setProgressType] = useState("pages");
   const [progreessNumber, setProgressNumber] = useState(0);
   const [readingStatus, setReadingStatus] = useState(readingStatusOptions);
-  //   const [book, setBook] = useState({});
+  const { user } = useAuth0();
+  const [formValidated, setFormValidated] = useState(false);
+  const [isSubmited, setIsSubmited] = useState([false, false]);
+  const [submitingPopup, setSubmitingPopup] = useState(false);
+
   const bookId = props.bookInformation.length != 0;
   const [formInfo, setFormInfo] = useState([
     { id: "coverImg", value: null, pos: 1 },
-    { id: "progressType", value: null, type: "pages", pos: 2 },
+    {
+      id: "progressType",
+      value: null,
+      type: "pages",
+      pos: 2,
+    },
     { id: "title", value: null, pos: 3 },
     { id: "author", value: null, pos: 4 },
     { id: "publisher", value: null, pos: 5 },
@@ -30,8 +42,13 @@ export default function AddBookPopup(props) {
     { id: "Categories", value: null, pos: 7 },
     { id: "isbn", value: null, pos: 8 },
     { id: "description", value: null, pos: 9 },
+    {
+      id: "readingStatus",
+      value: readingStatus.filter((status) => status.isSelected)[0]?.name,
+      pos: 9,
+    },
   ]);
-
+  console.log(formInfo);
   let progressPlacement = 0;
   let progressTypeSpan = {};
 
@@ -56,10 +73,15 @@ export default function AddBookPopup(props) {
   }
 
   function toggleFormInfo(e, pos) {
+    console.log(e, pos);
     setFormInfo((prevArr) => {
       return prevArr.map((item) => {
-        if (item.pos === pos) return { ...item, value: e.target.value };
-        else return item;
+        if (item.pos === pos) {
+          if (item.pos === 2) {
+            return { ...item, value: e.target.value, type: progressType };
+          }
+          return { ...item, value: e.target.value };
+        } else return item;
       });
     });
   }
@@ -85,13 +107,15 @@ export default function AddBookPopup(props) {
       .then((data) => {
         const bookOBJ = data[`ISBN:${props.bookInformation[0]}`];
 
+        console.log(bookOBJ);
+
         setFormInfo((prevInfo) => {
           return prevInfo.map((formItem) => {
             if (formItem.id === "coverImg") {
               return { ...formItem, value: props.bookInformation[1] };
             } else if (formItem.id === "progressType") {
-              setProgressNumber(bookOBJ?.details.number_of_pages);
-              return formItem;
+              setProgressNumber(bookOBJ?.details?.number_of_pages);
+              return { ...formItem, value: bookOBJ?.details?.number_of_pages };
             } else if (formItem.id === "title") {
               return { ...formItem, value: bookOBJ?.details.title };
             } else if (formItem.id === "author") {
@@ -101,7 +125,7 @@ export default function AddBookPopup(props) {
             } else if (formItem.id === "publicationYear") {
               return { ...formItem, value: bookOBJ?.details.publish_date };
             } else if (formItem.id === "Categories") {
-              return formItem;
+              return { ...formItem, value: null };
             } else if (formItem.id === "isbn") {
               return { ...formItem, value: props.bookInformation[0] };
             } else {
@@ -114,6 +138,43 @@ export default function AddBookPopup(props) {
         });
       });
   }, [props.bookInformation[0]]);
+
+  function addBookToDB() {
+    console.log("added to db");
+    console.log(props.bookInformation);
+    console.log(user);
+    console.log(formInfo);
+
+    if (
+      !props.bookInformation ||
+      !user ||
+      formInfo.filter((formItem) => !formItem.value).length != 0
+    ) {
+      setFormValidated(true);
+      setSubmitingPopup(true);
+      return;
+    }
+    setIsSubmited([true, false]);
+    setSubmitingPopup(true);
+    console.log("submited");
+
+    const requestBody = {
+      user: user?.sub,
+      bookISBN: props.bookInformation[0],
+      book: formInfo,
+    };
+    const options = {
+      method: "POST", // HTTP method (GET, POST, PUT, DELETE, etc.)
+      headers: {
+        "Content-Type": "application/json", // Set the content type to JSON since we're sending JSON data
+      },
+      body: JSON.stringify(requestBody), // Convert the request body to JSON string
+    };
+
+    fetch("http://localhost:8888/.netlify/functions/book_injection", options)
+      .then((response) => response.json())
+      .then((data) => setIsSubmited([true, true]));
+  }
 
   //   styles
   const progressBarStyle = {
@@ -148,7 +209,24 @@ export default function AddBookPopup(props) {
             />
           </div>
         </div>
-        <div className="scroll_container">
+        <AddBookFormValidation
+          toggleFunction={setFormValidated}
+          isShown={formValidated}
+          content="Please fill out all fields"
+          setSubmitingPopup={setSubmitingPopup}
+        />
+        <AddBookSubmitForm
+          isShown={isSubmited}
+          toggleFunction={setIsSubmited}
+          setSubmitingPopup={setSubmitingPopup}
+        />
+
+        <div
+          style={{
+            display: !submitingPopup ? "block" : "none",
+          }}
+          className="scroll_container"
+        >
           <section className="cover_image options_container">
             <span className="section_title">Cover image</span>
             <div className="container">
@@ -180,8 +258,11 @@ export default function AddBookPopup(props) {
                 ) : (
                   <input
                     type="text"
-                    value={progreessNumber}
-                    onChange={(e) => setProgressNumber(e.target.value)}
+                    value={formInfo[1].value}
+                    onChange={(e) => {
+                      toggleFormInfo(e, 2);
+                      //   setProgressNumber(e.target.value);
+                    }}
                   />
                 )}
               </div>
@@ -205,13 +286,7 @@ export default function AddBookPopup(props) {
                 <input
                   type="text"
                   className="book_detail_input title"
-                  value={`${
-                    bookId
-                      ? !formInfo[3].value
-                        ? "Author (Required)"
-                        : formInfo[3].value
-                      : "Author (Required)"
-                  }`}
+                  value={`${bookId ? formInfo[3].value : "Author (Required)"}`}
                   onChange={(e) => toggleFormInfo(e, 4)}
                 />
               </div>
@@ -239,6 +314,7 @@ export default function AddBookPopup(props) {
                   type="text"
                   className="book_detail_input Categories"
                   placeholder="Fiction, History"
+                  onChange={(e) => toggleFormInfo(e, 7)}
                 />
               </div>
               <div className="detail">
@@ -272,7 +348,7 @@ export default function AddBookPopup(props) {
             <div className="container">{readingStatusElements}</div>
           </section>
         </div>
-        <div onClick={props.addBookToDB} className="add_book_BTN">
+        <div onClick={addBookToDB} className="add_book_BTN">
           <span>Add to library</span>
         </div>
       </div>

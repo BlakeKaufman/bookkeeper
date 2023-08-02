@@ -42,6 +42,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
 /* options container */
 .start_library .add_book .options_container {
   width: 90%;
@@ -246,4 +247,27 @@ textarea {
   margin: 0 auto;
   border-radius: 10px;
   cursor: pointer;
+}
+
+/* validation container */
+
+.start_library .add_book .validationContainer .lds-ring {
+  margin: 0;
+}
+.start_library .add_book .validationContainer {
+  height: calc(100% - 60px - 80px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.start_library .add_book .validationContainer span {
+  margin-top: 20px;
+
+  padding: 8px 15px;
+  background-color: black;
+  color: white;
+
+  border-radius: 10px;
 }
