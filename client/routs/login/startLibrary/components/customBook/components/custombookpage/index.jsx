@@ -171,9 +171,17 @@ export default function AddBookPopup(props) {
       body: JSON.stringify(requestBody), // Convert the request body to JSON string
     };
 
-    fetch("http://localhost:8888/.netlify/functions/book_injection", options)
+    const LocalHostURL =
+      "http://localhost:8888/.netlify/functions/book_injection";
+    const productionURL =
+      "https://lainaapp.netlify.app/.netlify/functions/book_injection";
+
+    fetch(productionURL, options)
       .then((response) => response.json())
-      .then((data) => setIsSubmited([true, true]));
+      .then((data) => {
+        setIsSubmited([true, true]);
+        console.log(data);
+      });
   }
 
   //   styles
