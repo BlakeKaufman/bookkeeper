@@ -38,7 +38,7 @@ Users should be able to:
 - Mobile-first workflow
 - Fetch API integration
 - Node.js for database integration
-- Phpmyadmin for data storage
+- MongoDB for data storage
 - React.js for frontend framework
 - Auth0 for user authentication
 
