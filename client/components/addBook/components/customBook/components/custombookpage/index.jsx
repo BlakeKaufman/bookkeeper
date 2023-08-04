@@ -119,7 +119,6 @@ export default function AddBookPopup(props) {
   }
 
   useEffect(() => {
-    if (props.bookInformation[0] === 0) return;
     fetch(
       `https://openlibrary.org/api/books?bibkeys=ISBN:${props.bookInformation[0]}&jscmd=details&format=json`
     )
@@ -127,12 +126,15 @@ export default function AddBookPopup(props) {
       .then((data) => {
         const bookOBJ = data[`ISBN:${props.bookInformation[0]}`];
 
-        console.log(bookOBJ);
-
         setFormInfo((prevInfo) => {
           return prevInfo.map((formItem) => {
             if (formItem.id === "coverImg") {
-              return { ...formItem, value: props.bookInformation[1] };
+              return {
+                ...formItem,
+                value: bookOBJ?.thumbnail_url?.includes(".jpg")
+                  ? bookOBJ?.thumbnail_url
+                  : "",
+              };
             } else if (formItem.id === "progressType") {
               return { ...formItem, value: bookOBJ?.details?.number_of_pages };
             } else if (formItem.id === "title") {
@@ -140,7 +142,7 @@ export default function AddBookPopup(props) {
             } else if (formItem.id === "author") {
               return { ...formItem, value: bookOBJ?.details.authors?.[0].name };
             } else if (formItem.id === "publisher") {
-              return { ...formItem, value: bookOBJ?.details.publishers[0] };
+              return { ...formItem, value: bookOBJ?.details.publishers?.[0] };
             } else if (formItem.id === "publicationYear") {
               return { ...formItem, value: bookOBJ?.details.publish_date };
             } else if (formItem.id === "Categories") {
@@ -167,7 +169,7 @@ export default function AddBookPopup(props) {
     if (
       !props.bookInformation ||
       !user ||
-      formInfo.filter((formItem) => !formItem.value).length != 0
+      formInfo.slice(1).filter((formItem) => !formItem.value).length != 0
     ) {
       setFormValidated(true);
       setSubmitingPopup(true);
@@ -193,7 +195,7 @@ export default function AddBookPopup(props) {
     const LocalHostURL =
       "http://localhost:8888/.netlify/functions/book_injection";
     const productionURL =
-      "https://lainaapp.netlify.app/.netlify/functions/book_injection";
+      "https://bookkeeperwebsite.netlify.app/.netlify/functions/book_injection";
 
     fetch(LocalHostURL, options)
       .then((response) => response.json())
@@ -274,8 +276,10 @@ export default function AddBookPopup(props) {
                 }}
                 className="upload_box"
               >
-                {bookId && <img src={formInfo[0].value} alt={`cover image`} />}
-                {!bookId && (
+                {formInfo[0].value && (
+                  <img src={formInfo[0].value} alt={`cover image`} />
+                )}
+                {!formInfo[0].value && (
                   <span onClick={triggerFileUpload} className="upload_icon">
                     +
                   </span>

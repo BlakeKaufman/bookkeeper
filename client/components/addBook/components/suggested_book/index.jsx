@@ -6,7 +6,9 @@ export default function LoadSuggestedBook(props) {
 
   useEffect(() => {
     fetch(`https://covers.openlibrary.org/b/isbn/${props.id}-M.jpg`).then(
-      (response) => setCover(response.url)
+      (response) => {
+        setCover(response.url);
+      }
     );
   }, []);
 
@@ -17,12 +19,16 @@ export default function LoadSuggestedBook(props) {
   return (
     <div onClick={props.onClick} className="book">
       <LoadingAnimation isDisplayed={!cover} />
-      <img
-        style={imgStyle}
-        src={cover}
-        alt={`book cover img for ${props.title} book`}
-        className={props.id}
-      />
+
+      {props.hasCover && (
+        <img
+          style={imgStyle}
+          src={cover}
+          alt={`book cover img for ${props.title} book`}
+          className={props.id}
+        />
+      )}
+      {!props.hasCover && <span>{props.title}</span>}
     </div>
   );
 }

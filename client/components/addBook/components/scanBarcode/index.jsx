@@ -1,25 +1,11 @@
 import Html5QrcodePlugin from "../../../QR_scanner";
 import closeIcon from "../../../../assets/images/icons/close.svg";
 import "./index.css";
-import { useState } from "react";
 
 export default function ScanBaracodePopup(props) {
   const popupStyle = {
     top: props.popupDisplayed ? "0" : "100%",
   };
-
-  const [ISBN, setISBN] = useState({ isbn: null });
-
-  function loadISBN(isbn) {
-    setISBN(isbn);
-    sendISBN(isbn);
-  }
-  console.log(ISBN);
-
-  function sendISBN(isbn) {
-    console.log("send");
-    // API CALL WILL GO HERE
-  }
 
   return (
     <div style={popupStyle} className="scan_barcode_popup">
@@ -34,7 +20,7 @@ export default function ScanBaracodePopup(props) {
         </div>
       </div>
 
-      {ISBN.isbn !== null ? (
+      {props.ISBN ? (
         <div className="lds-ring">
           <div></div>
           <div></div>
@@ -46,7 +32,7 @@ export default function ScanBaracodePopup(props) {
           fps={10}
           qrbox={250}
           disableFlip={false}
-          isScanned={loadISBN}
+          isScanned={props.loadISBN}
         />
       )}
     </div>

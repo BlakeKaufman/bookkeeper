@@ -41,7 +41,8 @@ export default function LoadAddBookPage(props) {
   ]);
   const [suggestedBooks, setSuggestedBooks] = useState(suggestedBooksOBJ);
   const [bookInformation, setBookInformation] = useState([]); //used to set book informatiun from barcode scan
-
+  const [searchValue, setSearchValue] = useState("");
+  const [booksFromSearch, setBooksFromSearch] = useState([]);
   function togglePopup(event) {
     const clickedOption = event.target.classList[0];
 
@@ -64,7 +65,53 @@ export default function LoadAddBookPage(props) {
         else return option;
       });
     });
-    setBookInformation([bookID, event.target.src]);
+    setBookInformation([bookID]);
+  }
+
+  function loadISBN(isbn) {
+    setBookInformation([isbn]);
+    sendISBN(isbn);
+  }
+
+  function sendISBN(isbn) {
+    setBookInformation([isbn]);
+    setPopupDisplayed([
+      {
+        name: "customBook",
+        open: true,
+      },
+      { name: "barcodeScanner", open: false },
+    ]);
+  }
+
+  function handleSearch(event) {
+    setSearchValue(event.target.value);
+
+    if (!event.nativeEvent.data) return;
+    if (event.target.value.length < 10) return;
+
+    const searchURL = `https://openlibrary.org/search.json?q=${event.target.value}`;
+    const numberPattern = /^\d+$/;
+
+    fetch(searchURL)
+      .then((response) => response.json())
+      .then((data) => {
+        const books = data.docs.map((book, id) => {
+          if (!book?.isbn) return;
+          console.log(book);
+          const bookISBNs = book.isbn.filter((isbn) =>
+            numberPattern.test(isbn)
+          );
+
+          return {
+            isbn: bookISBNs[0],
+            title: book.title,
+            hasCover: book.cover_i && true,
+          };
+          //   return book;
+        });
+        setBooksFromSearch(books);
+      });
   }
 
   const popupStyle = !!props.toggleFunction
@@ -74,7 +121,27 @@ export default function LoadAddBookPage(props) {
     : {}; // admin books page to popin and out
 
   const suggestedBooksElements = suggestedBooks.map((book, id) => {
-    return <LoadSuggestedBook onClick={openSuggestedBook} key={id} {...book} />;
+    return (
+      <LoadSuggestedBook
+        onClick={openSuggestedBook}
+        key={id}
+        {...book}
+        hasCover={true}
+      />
+    );
+  });
+
+  const booksFromSearchElements = booksFromSearch.map((book, id) => {
+    if (!book?.isbn || !book.hasCover) return;
+    return (
+      <LoadSuggestedBook
+        onClick={openSuggestedBook}
+        key={id}
+        id={book.isbn}
+        title={book.title}
+        hasCover={book.hasCover}
+      />
+    );
   });
 
   return (
@@ -109,10 +176,20 @@ export default function LoadAddBookPage(props) {
           name="book_search"
           id="book_search"
           placeholder="Search by title, author, or ISBN..."
+          onChange={handleSearch}
+          value={searchValue}
         />
         <div className="suggested_books">
           <h1>Suggested books</h1>
-          <div className="books_container">{suggestedBooksElements}</div>
+          <div className="books_container">
+            {!searchValue && suggestedBooksElements}
+            {searchValue && booksFromSearch.length === 0 && (
+              <LoadingAnimation isDisplayed={true} />
+            )}
+            {searchValue &&
+              booksFromSearch.length !== 0 &&
+              booksFromSearchElements}
+          </div>
         </div>
         <div className="continue_container">
           <span onClick={props.addUserToDB} className="continue_BTN">
@@ -131,6 +208,8 @@ export default function LoadAddBookPage(props) {
       <ScanBaracodePopup
         popupDisplayed={popupDisplayed[1].open}
         togglePopup={togglePopup}
+        loadISBN={loadISBN}
+        ISBN={bookInformation[0]}
       />
     </div>
   );
