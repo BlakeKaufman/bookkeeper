@@ -77,6 +77,8 @@
   border-radius: 10px;
   margin: 10px auto 5px;
 
+  border: unset;
+
   cursor: pointer;
 }
 .landing-page .CTA_BOX > *:nth-child(5) {

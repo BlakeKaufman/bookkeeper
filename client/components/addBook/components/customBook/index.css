@@ -1,7 +1,7 @@
 /* ------------------------ */
 /* add book popup */
 /* ------------------------ */
-.start_library .add_book_popup {
+.add_book_popup_container .add_book_popup {
   height: 100%;
   width: 100%;
 
@@ -20,7 +20,7 @@
 
   transition: top 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-.start_library .add_book {
+.add_book_popup_container .add_book {
   height: 100%;
   width: 100%;
   max-width: 500px;
@@ -29,14 +29,14 @@
   flex-direction: column;
 }
 
-.start_library .add_book .topbar h1 {
+.add_book_popup_container .add_book .topbar h1 {
   margin: auto;
 }
-.start_library .add_book .topbar {
+.add_book_popup_container .add_book .topbar {
   padding: 10px;
 }
 
-.start_library .add_book .scroll_container {
+.add_book_popup_container .add_book .scroll_container {
   height: calc(100% - 60px - 80px);
 
   overflow-y: scroll;
@@ -44,18 +44,18 @@
 }
 
 /* options container */
-.start_library .add_book .options_container {
+.add_book_popup_container .add_book .options_container {
   width: 90%;
 
   margin: 0 auto;
 }
-.start_library .add_book .options_container .section_title {
+.add_book_popup_container .add_book .options_container .section_title {
   display: block;
   font-size: 14px;
   opacity: 0.5;
   margin: 0 0 10px 10px;
 }
-.start_library .add_book .options_container .container {
+.add_book_popup_container .add_book .options_container .container {
   background-color: white;
   padding: 10px;
   border-radius: 5px;
@@ -64,7 +64,7 @@
 }
 
 /* cover img */
-.start_library .add_book .cover_image .upload_box {
+.add_book_popup_container .add_book .cover_image .upload_box {
   height: 120px;
   width: 80px;
 
@@ -85,15 +85,15 @@
   overflow: hidden;
 }
 
-.start_library .add_book .cover_image .upload_box img {
+.add_book_popup_container .add_book .cover_image .upload_box img {
   height: 100%;
   width: 100%;
 }
-.start_library .add_book .cover_image .upload_box span {
+.add_book_popup_container .add_book .cover_image .upload_box span {
   font-size: 35px;
   font-weight: normal;
 }
-.start_library .add_book .cover_image .upload_span {
+.add_book_popup_container .add_book .cover_image .upload_span {
   width: 80px;
   font-size: 14px;
 
@@ -105,7 +105,7 @@
   margin: 5px 0 0 10px;
 }
 /* progress information */
-.start_library .add_book .progress_type .type_container {
+.add_book_popup_container .add_book .progress_type .type_container {
   width: 95%;
   /* height: 30px; */
 
@@ -122,7 +122,7 @@
   background-color: rgb(225, 225, 225);
   position: relative;
 }
-.start_library .add_book .progress_type .type_container .type {
+.add_book_popup_container .add_book .progress_type .type_container .type {
   width: calc(100% / 3);
   line-height: 30px;
   height: 100%;
@@ -130,7 +130,11 @@
   display: block;
   z-index: 2;
 }
-.start_library .add_book .progress_type .type_container .active_option {
+.add_book_popup_container
+  .add_book
+  .progress_type
+  .type_container
+  .active_option {
   width: calc(100% / 3);
   height: 90%;
 
@@ -149,7 +153,7 @@
   transition: left 0.3s ease;
 }
 /* page count */
-.start_library .add_book .progress_type .progress_input {
+.add_book_popup_container .add_book .progress_type .progress_input {
   width: 95%;
 
   margin: 0 auto;
@@ -159,14 +163,14 @@
 
   border-top: 1px solid rgb(225, 225, 225);
 }
-.start_library .add_book .progress_type .progress_input input {
+.add_book_popup_container .add_book .progress_type .progress_input input {
   width: max-content;
   max-width: 60px;
   border: unset;
   text-align: right;
 }
 /* input and selector containers  */
-.start_library .add_book .selection_containers .detail {
+.add_book_popup_container .add_book .selection_containers .detail {
   width: 100%;
   display: flex;
   align-items: center;
@@ -174,50 +178,57 @@
   /* padding: 10px 0; */
   position: relative;
 }
-.start_library .add_book .selection_containers .detail:not(:last-child) {
+.add_book_popup_container
+  .add_book
+  .selection_containers
+  .detail:not(:last-child) {
   border-bottom: 1px solid rgb(208, 208, 208);
 }
-.start_library .add_book .selection_containers .detail span {
+.add_book_popup_container .add_book .selection_containers .detail span {
   padding-right: 5px;
 }
-.start_library .add_book .selection_containers .detail input,
+.add_book_popup_container .add_book .selection_containers .detail input,
 textarea {
   width: 100%;
   border: unset;
 }
-.start_library .add_book .selection_containers .detail input {
+.add_book_popup_container .add_book .selection_containers .detail input {
   height: 40px;
   text-align: right;
 }
-.start_library .add_book .selection_containers .detail textarea {
+.add_book_popup_container .add_book .selection_containers .detail textarea {
   padding: 10px 5px;
   resize: none;
 }
 
 /* removing the publication year stuling so text isnt wrapped */
-.start_library .add_book .selection_containers .detail:nth-child(4) span {
+.add_book_popup_container
+  .add_book
+  .selection_containers
+  .detail:nth-child(4)
+  span {
   width: 100%;
 }
 
 /* reading status */
-.start_library .add_book .reading_status .detail {
+.add_book_popup_container .add_book .reading_status .detail {
   padding: 10px 0;
 }
-.start_library .add_book .reading_status .detail span {
+.add_book_popup_container .add_book .reading_status .detail span {
   display: flex;
   align-items: center;
 }
-.start_library .add_book .reading_status .detail span .icon {
+.add_book_popup_container .add_book .reading_status .detail span .icon {
   margin-right: 10px;
 }
 
-.start_library .add_book .reading_status .icon {
+.add_book_popup_container .add_book .reading_status .icon {
   width: 15px;
   height: 15px;
 
   opacity: 0.5;
 }
-.start_library .add_book .reading_status .checkIcon {
+.add_book_popup_container .add_book .reading_status .checkIcon {
   width: 15px;
   height: 15px;
   opacity: 1;
@@ -225,7 +236,7 @@ textarea {
 
 /* continue button */
 
-.start_library .add_book .add_book_BTN {
+.add_book_popup_container .add_book .add_book_BTN {
   width: 100%;
   height: 80px;
 
@@ -236,7 +247,7 @@ textarea {
   align-items: center;
   justify-content: center;
 }
-.start_library .add_book .add_book_BTN span {
+.add_book_popup_container .add_book .add_book_BTN span {
   width: 95%;
   height: 40px;
   display: block;
@@ -251,10 +262,10 @@ textarea {
 
 /* validation container */
 
-.start_library .add_book .validationContainer .lds-ring {
+.add_book_popup_container .add_book .validationContainer .lds-ring {
   margin: 0;
 }
-.start_library .add_book .validationContainer {
+.add_book_popup_container .add_book .validationContainer {
   height: calc(100% - 60px - 80px);
 
   display: flex;
@@ -262,7 +273,7 @@ textarea {
   align-items: center;
   justify-content: center;
 }
-.start_library .add_book .validationContainer span {
+.add_book_popup_container .add_book .validationContainer span {
   margin-top: 20px;
 
   padding: 8px 15px;

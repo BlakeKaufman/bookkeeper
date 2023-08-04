@@ -17,9 +17,9 @@ import LoadBottomNavAdmin from "../components/bottomNav";
 import LoadBookInfoPopup from "./components/bookInfoPopup";
 import LoadSelectedCategoryPage from "./components/selectedCategoryPage";
 import LoadAddCollectionPopup from "./components/addCollectionPopup";
-import LoadStartLibrary from "../../login/startLibrary";
 import AdminTopBar from "../components/topbar";
 import adminRedirect from "../../../../auth0/redirect";
+import LoadAddBookPage from "../../../components/addBook";
 
 const libraryOptions = [
   { name: "Library", icon: bookShelf },
@@ -76,6 +76,7 @@ export default function LoadAdminBooks() {
     setAddCollectionPopup((prev) => !prev);
   }
   function toggleAddBook(event) {
+    console.log("tst");
     event.preventDefault();
     setAddBookPopup((prev) => !prev);
   }
@@ -122,12 +123,12 @@ export default function LoadAdminBooks() {
     );
   });
 
-  const booksAdminStyle = {
-    overflow: bookInfoDiplayed || selectedCategoryDisplayed ? "hidden" : "auto",
-  };
+  // const booksAdminStyle = {
+  //   overflow: bookInfoDiplayed || selectedCategoryDisplayed ? "hidden" : "auto",
+  // };
 
   return (
-    <div style={booksAdminStyle} className="books_admin">
+    <div className="books_admin">
       <AdminTopBar
         name="Bookkeeper"
         clickEvent={toggleAddBook}
@@ -202,9 +203,11 @@ export default function LoadAdminBooks() {
         isDisplayed={addCollectionPopup}
       />
 
-      <LoadStartLibrary
-        toggleFunction={toggleAddBook}
+      <LoadAddBookPage
         isDisplayed={addBookPopup}
+        path="admin"
+        toggleFunction={toggleAddBook}
+        heading="Add Book"
       />
     </div>
   );

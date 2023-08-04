@@ -1,5 +1,6 @@
 // import "./index.css";
 import { useState } from "react";
+import "./index.css";
 
 import LoadBackButton from "../loginPathBack";
 import editIcon from "../../assets/images/icons/edit.svg";
@@ -116,7 +117,9 @@ export default function LoadAddBookPage(props) {
 
   const popupStyle = !!props.toggleFunction
     ? {
-        left: props.isDisplayed ? "0" : "100%",
+        left: props.isDisplayed ? "0%" : "100%",
+        position: "absolute",
+        top: props.isDisplayed ? "0%" : "0",
       }
     : {}; // admin books page to popin and out
 
@@ -145,58 +148,52 @@ export default function LoadAddBookPage(props) {
   });
 
   return (
-    <div style={popupStyle} className="start_library">
-      <div className="content">
-        <div className="topbar">
-          <LoadBackButton
-            toggleFunction={props.toggleFunction}
-            path={props.backButtonPath}
-          />
-          <h1>{props.heading}</h1>
-          <div className="add_book_btns">
-            <div onClick={togglePopup} className="icon">
-              <img
-                src={editIcon}
-                className="customBook"
-                alt="edit icon to add a custom book"
-              />
-            </div>
-            <div onClick={togglePopup} className="icon">
-              <img
-                src={barcodeIcon}
-                className="barcodeScanner"
-                alt="scan baracode icon to add a custom book"
-              />
-            </div>
-          </div>
-        </div>
-        <input
-          className="book_search"
-          type="text"
-          name="book_search"
-          id="book_search"
-          placeholder="Search by title, author, or ISBN..."
-          onChange={handleSearch}
-          value={searchValue}
+    <div style={popupStyle} className="add_book_popup_container">
+      <div className="topbar">
+        <LoadBackButton
+          toggleFunction={props.toggleFunction}
+          path={props.backButtonPath}
         />
-        <div className="suggested_books">
-          <h1>Suggested books</h1>
-          <div className="books_container">
-            {!searchValue && suggestedBooksElements}
-            {searchValue && booksFromSearch.length === 0 && (
-              <LoadingAnimation isDisplayed={true} />
-            )}
-            {searchValue &&
-              booksFromSearch.length !== 0 &&
-              booksFromSearchElements}
+        <h1>{props.heading}</h1>
+        <div className="add_book_btns">
+          <div onClick={togglePopup} className="icon">
+            <img
+              src={editIcon}
+              className="customBook"
+              alt="edit icon to add a custom book"
+            />
           </div>
-        </div>
-        <div className="continue_container">
-          <span onClick={props.addUserToDB} className="continue_BTN">
-            Finish
-          </span>
+          <div onClick={togglePopup} className="icon">
+            <img
+              src={barcodeIcon}
+              className="barcodeScanner"
+              alt="scan baracode icon to add a custom book"
+            />
+          </div>
         </div>
       </div>
+      <input
+        className="book_search"
+        type="text"
+        name="book_search"
+        id="book_search"
+        placeholder="Search by title, author, or ISBN..."
+        onChange={handleSearch}
+        value={searchValue}
+      />
+      <div className="suggested_books">
+        <h1>Suggested books</h1>
+        <div className="books_container">
+          {!searchValue && suggestedBooksElements}
+          {searchValue && booksFromSearch.length === 0 && (
+            <LoadingAnimation isDisplayed={true} />
+          )}
+          {searchValue &&
+            booksFromSearch.length !== 0 &&
+            booksFromSearchElements}
+        </div>
+      </div>
+
       {/* popup */}
 
       <LoadAddBookPopup

@@ -6,6 +6,8 @@
 
   position: absolute;
   bottom: 0;
+  left: 0;
+  z-index: 99;
 }
 .nav_bar .nav_container {
   width: 100%;

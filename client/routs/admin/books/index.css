@@ -4,7 +4,7 @@
 
   margin: 0 auto;
 
-  overflow-y: scroll; /* make scroll none when popup is out */
+  overflow-y: hidden; /* make scroll none when popup is out */
   overflow-x: hidden;
 
   background-color: var(--main_background_color);
