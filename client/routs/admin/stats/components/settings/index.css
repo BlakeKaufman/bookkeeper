@@ -1,0 +1,46 @@
+.settinsPopup {
+  width: 100%;
+  height: calc(100% - 65px);
+  position: absolute;
+  left: 100%;
+  top: 0;
+  z-index: 99;
+
+  background-color: var(--main_background_color);
+
+  transition: left 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+/* top */
+.settinsPopup .top {
+  width: 100%;
+  height: 50px;
+
+  padding: 10px;
+  background-color: rgb(220, 220, 220);
+
+  backdrop-filter: blue(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  display: flex;
+}
+.settinsPopup .top .content {
+  width: 70px;
+  display: flex;
+  align-items: center;
+}
+.settinsPopup .top .content span {
+  width: unset;
+  display: block;
+}
+.settinsPopup .top .content .icon {
+  width: 25px;
+  height: 25px;
+}
+.settinsPopup .top span {
+  width: calc(100% - 140px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

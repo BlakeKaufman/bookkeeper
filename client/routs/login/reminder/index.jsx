@@ -7,6 +7,7 @@ import calendarIcon from "../../../assets/images/icons/calendar.svg";
 import notificationIcon from "../../../assets/images/icons/notification.svg";
 import LoginPathContinue from "../../../components/loginPathContinue";
 import LoadDayReminder from "./componets/day";
+import testUserIsLoggedIn from "../../../../auth0/testUserLogin";
 
 const dayObject = [
   { day: "Sunday", isSelected: false },
@@ -19,8 +20,10 @@ const dayObject = [
 ];
 
 export default function LoadReminder() {
+  testUserIsLoggedIn();
   const [activeDay, setActiveDay] = useState(dayObject);
   const navigate = useNavigate();
+
   function addActiveDay(event) {
     const targetEvent = event.target;
     console.log(targetEvent);

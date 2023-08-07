@@ -12,6 +12,8 @@ import starIcon from "../../../assets/images/icons/stars.svg";
 import checkIcon from "../../../assets/images/icons/check.svg";
 import clockIcon from "../../../assets/images/icons/clock.svg";
 import star from "../../../assets/images/icons/circle-star.svg";
+import { useState } from "react";
+import LoadSettingsPopup from "./components/settings";
 
 const goalCards = [
   {
@@ -59,6 +61,12 @@ const contentCards = [
 ];
 
 export default function LoadStatsAdmin() {
+  const [settingsDisplayed, setSettingsDisplayed] = useState(false);
+  function toggleSettings() {
+    console.log("test");
+
+    setSettingsDisplayed((prev) => !prev);
+  }
   const goalElements = goalCards.map((card) => {
     return <StatsCards key={card.cardName} {...card} />;
   });
@@ -67,7 +75,11 @@ export default function LoadStatsAdmin() {
   });
   return (
     <div className="stats_admin">
-      <AdminTopBar name="Stats" icon={settingsIcon} />
+      <AdminTopBar
+        clickEvent={toggleSettings}
+        name="Stats"
+        icon={settingsIcon}
+      />
       <section className="stats_content">
         <div className="stats_container goal_container">
           <h1>Stats</h1>
@@ -100,6 +112,11 @@ export default function LoadStatsAdmin() {
         </div>
       </section>
       <LoadBottomNavAdmin activeNav="stats" />
+
+      <LoadSettingsPopup
+        isDisplayed={settingsDisplayed}
+        toggleSettings={toggleSettings}
+      />
     </div>
   );
 }

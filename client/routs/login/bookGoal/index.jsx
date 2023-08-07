@@ -8,8 +8,10 @@ import LoadBackButton from "../../../components/loginPathBack";
 import "./index.css";
 
 import LoginPathContinue from "../../../components/loginPathContinue";
+import testUserIsLoggedIn from "../../../../auth0/testUserLogin";
 
 export default function LoadBookGoal() {
+  testUserIsLoggedIn();
   const { user } = useAuth0();
   const navigate = useNavigate();
 

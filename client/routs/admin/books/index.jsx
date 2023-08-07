@@ -1,5 +1,6 @@
 import "./index.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import angleLeftIcon from "../../../assets/images/icons/angle-small-left.svg";
 
@@ -20,6 +21,7 @@ import LoadAddCollectionPopup from "./components/addCollectionPopup";
 import AdminTopBar from "../components/topbar";
 import adminRedirect from "../../../../auth0/redirect";
 import LoadAddBookPage from "../../../components/addBook";
+import ReadingNowBooks from "./components/readingNowBook";
 
 const libraryOptions = [
   { name: "Library", icon: bookShelf },
@@ -40,6 +42,10 @@ const authorOptions = [
 
 export default function LoadAdminBooks() {
   adminRedirect("admin_books");
+  const { user } = useAuth0();
+
+  const [userBooks, setUserBooks] = useState([]);
+  const [addNewBook, setAddNewBook] = useState(0);
 
   const [bookInfoDiplayed, setBookInfoDisplayed] = useState(false);
   const [selectedCategoryDisplayed, setSelectedCategoryDisplayed] =
@@ -76,9 +82,11 @@ export default function LoadAdminBooks() {
     setAddCollectionPopup((prev) => !prev);
   }
   function toggleAddBook(event) {
-    console.log("tst");
     event.preventDefault();
     setAddBookPopup((prev) => !prev);
+  }
+  function recalUserBooks() {
+    setAddNewBook((prev) => prev + 1);
   }
 
   const libraryElements = libraryOptions.map((option) => {
@@ -123,6 +131,41 @@ export default function LoadAdminBooks() {
     );
   });
 
+  useEffect(() => {
+    const userName = user?.sub ? user.sub : null;
+    if (!userName) return;
+
+    const options = {
+      method: "POST", // HTTP method (GET, POST, PUT, DELETE, etc.)
+      headers: {
+        "Content-Type": "application/json", // Set the content type to JSON since we're sending JSON data
+      },
+      body: JSON.stringify(userName), // Convert the request body to JSON string
+    };
+    const localhostURL =
+      "http://localhost:8888/.netlify/functions/get_user_books";
+
+    const productionURL =
+      "https://bookkeeperwebsite.netlify.app/.netlify/functions/get_user_books";
+
+    fetch(localhostURL, options)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setUserBooks(data);
+      });
+  }, [addNewBook]);
+
+  // dynamnic leading of books
+  // reading now top section
+  const readingNowBookElements = userBooks
+    .filter((book) => book.book[9].value.toLowerCase() === "reading")
+    .map((book, id) => {
+      return (
+        <ReadingNowBooks toggleBookInfo={toggleBookInfo} key={id} {...book} />
+      );
+    });
+
   // const booksAdminStyle = {
   //   overflow: bookInfoDiplayed || selectedCategoryDisplayed ? "hidden" : "auto",
   // };
@@ -143,16 +186,10 @@ export default function LoadAdminBooks() {
           </div>
           <div className="books_container">
             <div className="scroll_container">
-              <div onClick={toggleBookInfo} className="book 1">
-                {/* the 1 is the book id */}
-                <div className="img">
-                  <img src="" alt="" />
-                </div>
-                <span className="pages_left">100pg left</span>
-                <div className="bar">
-                  <div className="fill"></div>
-                </div>
-              </div>
+              {readingNowBookElements.length === 0 && (
+                <h1>You are currently reading no books</h1>
+              )}
+              {readingNowBookElements.length > 0 && readingNowBookElements}
             </div>
           </div>
         </section>
@@ -208,6 +245,7 @@ export default function LoadAdminBooks() {
         path="admin"
         toggleFunction={toggleAddBook}
         heading="Add Book"
+        recalUserBooks={recalUserBooks}
       />
     </div>
   );
