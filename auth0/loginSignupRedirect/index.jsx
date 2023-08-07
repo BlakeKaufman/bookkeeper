@@ -11,7 +11,7 @@ const RedirectPage = (actionType) => {
     if (!isLoading && isAuthenticated && actionType) {
       // User is authenticated, redirect to the next page
       if (actionType === "login") navigate("/admin/books");
-      else if (actionType === "signUp") navigate("/login/reminder");
+      else if (actionType === "signUp") navigate("/login/bookGoal");
     }
   }, [isLoading, isAuthenticated, history]);
 };
