@@ -22,29 +22,26 @@ export async function handler(event, context) {
     };
   }
   try {
-    // Connect to the MongoDB server
     await client.connect();
-    console.log("Connected to MongoDB");
 
-    // Access the database and collection
-    const database = client.db("Users"); // Replace 'mydatabase' with your database name
-    const collection = database.collection("books"); // Replace 'mycollection' with your collection name
+    const database = client.db("Users"); // Replace 'mydb' with your database name
 
-    // Insert the data
-    const result = await collection.insertOne(newData);
-    console.log("Data inserted successfully:", result.insertedId);
+    const booksCollection = database.collection("books");
+
+    // Find all books associated with the user's userId
+    const books = await booksCollection.find({ user: newData }).toArray();
     return {
       statusCode: 200,
-      body: JSON.stringify(result.insertedId),
+      body: JSON.stringify(books),
     };
   } catch (error) {
-    console.error("Error inserting data:", error);
     return {
       statusCode: 500,
       body: JSON.stringify(error),
     };
+    // console.error("Error:", error);
+    // return [];
   } finally {
-    // Close the connection when done
     client.close();
   }
 }
