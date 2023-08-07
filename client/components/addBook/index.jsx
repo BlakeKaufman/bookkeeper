@@ -201,6 +201,7 @@ export default function LoadAddBookPage(props) {
         togglePopup={togglePopup}
         bookInformation={bookInformation}
         setBookInformation={setBookInformation}
+        recalUserBooks={props.recalUserBooks}
       />
       <ScanBaracodePopup
         popupDisplayed={popupDisplayed[1].open}

@@ -58,7 +58,7 @@ export default function AddBookPopup(props) {
     {
       id: "readingStatus",
       value: readingStatus.filter((status) => status.isSelected)[0]?.name,
-      pos: 9,
+      pos: 10,
     },
   ]);
 
@@ -95,8 +95,6 @@ export default function AddBookPopup(props) {
     });
   }
 
-  console.log(formInfo, "----");
-
   function toggleReadingStatus(event) {
     const selectedStatus = event.target.parentElement.children[0].textContent;
 
@@ -107,6 +105,18 @@ export default function AddBookPopup(props) {
         else return { ...option, isSelected: false };
       })
     );
+    setFormInfo((prevInfo) => {
+      return prevInfo.map((info) => {
+        if (info.id === "readingStatus")
+          return {
+            ...info,
+            value: readingStatus.filter(
+              (status) => status.name === selectedStatus
+            )[0]?.name,
+          };
+        else return info;
+      });
+    });
   }
 
   function triggerFileUpload(event) {
@@ -115,7 +125,6 @@ export default function AddBookPopup(props) {
     const fileUploadInput = document.getElementById("bookCover");
 
     fileUploadInput.click();
-    console.log(event);
   }
 
   useEffect(() => {
@@ -149,10 +158,16 @@ export default function AddBookPopup(props) {
               return { ...formItem, value: null };
             } else if (formItem.id === "isbn") {
               return { ...formItem, value: props.bookInformation[0] };
-            } else {
+            } else if (formItem.id === "description") {
               return {
                 ...formItem,
                 value: bookOBJ?.details?.description?.value,
+              };
+            } else {
+              return {
+                ...formItem,
+                value: readingStatus.filter((status) => status.isSelected)[0]
+                  ?.name,
               };
             }
           });
@@ -177,7 +192,6 @@ export default function AddBookPopup(props) {
     }
     setIsSubmited([true, false]);
     setSubmitingPopup(true);
-    console.log("submited");
 
     const requestBody = {
       user: user?.sub,
@@ -192,16 +206,16 @@ export default function AddBookPopup(props) {
       body: JSON.stringify(requestBody), // Convert the request body to JSON string
     };
 
-    const LocalHostURL =
+    const localHostURL =
       "http://localhost:8888/.netlify/functions/book_injection";
     const productionURL =
       "https://bookkeeperwebsite.netlify.app/.netlify/functions/book_injection";
 
-    fetch(LocalHostURL, options)
+    fetch(localHostURL, options)
       .then((response) => response.json())
       .then((data) => {
         setIsSubmited([true, true]);
-        console.log(data);
+        if (props.recalUserBooks) props.recalUserBooks();
       });
   }
 
@@ -233,8 +247,6 @@ export default function AddBookPopup(props) {
       key={id}
     />
   ));
-
-  console.log(formItems);
 
   return (
     <div style={popupStyle} className="add_book_popup">
