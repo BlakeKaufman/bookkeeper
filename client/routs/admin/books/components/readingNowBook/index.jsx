@@ -1,5 +1,4 @@
 export default function ReadingNowBooks(props) {
-  console.log(props);
   return (
     <div onClick={props.toggleBookInfo} className={`book ${props._id}`}>
       {/* the 1 is the book id */}

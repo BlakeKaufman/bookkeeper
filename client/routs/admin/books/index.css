@@ -68,6 +68,8 @@
   align-items: center;
 
   padding: 10px 0;
+
+  position: relative;
 }
 .books_admin .option_container .catagory_container .catagory:not(:last-child) {
   border-bottom: 1px solid gainsboro;
@@ -868,7 +870,7 @@
   border: unset;
   width: 95%;
   margin: 0 2.5% 20px;
-  padding: 8px 8px 8px 30px;
+  padding: 8px;
 
   border-radius: 10px;
 }
@@ -887,21 +889,24 @@
 .books_admin .filtered_books_page .filter_container .sort {
   position: relative;
 }
+.books_admin .filtered_books_page .filter_container .text_container {
+  display: flex;
+  align-items: center;
+}
 .books_admin .filtered_books_page .filter_container .sort .icon {
   width: 15px;
   height: 15px;
-  background-color: black;
+  margin-left: 10px;
 }
 .books_admin .filtered_books_page .filter_container .sort span {
-  width: 75px;
   opacity: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-transform: uppercase;
 }
 
 /* book */
+.books_admin .filtered_books_page .books_container {
+  width: 100%;
+  height: calc(100% - 213px);
+}
 .books_admin .filtered_books_page .books_container .book {
   width: 95%;
   padding: 10px 0;
@@ -949,6 +954,42 @@
   width: 20px;
 
   background-color: black;
+}
+/* is empty container */
+.books_admin .filtered_books_page .books_container .is_empty_container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.books_admin .filtered_books_page .books_container .icon {
+  height: 30px;
+  width: 30px;
+
+  margin: 0 auto 20px;
+}
+.books_admin .filtered_books_page .books_container span:nth-child(2) {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.books_admin .filtered_books_page .books_container span:nth-child(3) {
+  font-size: 16px;
+  opacity: 0.5;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.books_admin .filtered_books_page .books_container span:nth-child(4) {
+  width: 100%;
+  max-width: 300px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+
+  margin: 0 auto;
 }
 
 /* CHANGING LOAD START LIBRARY STYING FOR BOOKS PAGE */

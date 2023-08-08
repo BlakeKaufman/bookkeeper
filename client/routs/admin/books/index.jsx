@@ -48,8 +48,10 @@ export default function LoadAdminBooks() {
   const [addNewBook, setAddNewBook] = useState(0);
 
   const [bookInfoDiplayed, setBookInfoDisplayed] = useState(false);
-  const [selectedCategoryDisplayed, setSelectedCategoryDisplayed] =
-    useState(false);
+  const [selectedCategoryDisplayed, setSelectedCategoryDisplayed] = useState({
+    isDisplayed: false,
+    text: "",
+  });
   const [showCategory, setShowCategory] = useState([
     { name: "library", isDisplayed: false },
     { name: "collections", isDisplayed: false },
@@ -62,8 +64,15 @@ export default function LoadAdminBooks() {
   function toggleBookInfo() {
     setBookInfoDisplayed((prevDisplay) => !prevDisplay);
   }
-  function toggleSelectedCategory() {
-    setSelectedCategoryDisplayed((prevDisplay) => !prevDisplay);
+  function toggleSelectedCategory(event) {
+    setSelectedCategoryDisplayed((prevDisplay) => {
+      return {
+        isDisplayed: !prevDisplay.isDisplayed,
+        text: event.target.classList.contains("screen")
+          ? event.target.classList[1]
+          : prevDisplay.text,
+      };
+    });
   }
 
   function toggleShowCategory(event) {
@@ -96,6 +105,8 @@ export default function LoadAdminBooks() {
         name={option.name}
         icon={option.icon}
         key={option.name}
+        userBooks={userBooks}
+        containerName="library"
       />
     );
   });
@@ -107,6 +118,8 @@ export default function LoadAdminBooks() {
         name={option.name}
         icon={option.icon}
         key={option.name}
+        userBooks={userBooks}
+        containerName="collection"
       />
     );
   });
@@ -117,6 +130,8 @@ export default function LoadAdminBooks() {
         name={option.name}
         icon={option.icon}
         key={option.name}
+        userBooks={userBooks}
+        containerName="categories"
       />
     );
   });
@@ -127,6 +142,8 @@ export default function LoadAdminBooks() {
         name={option.name}
         icon={option.icon}
         key={option.name}
+        userBooks={userBooks}
+        containerName="author"
       />
     );
   });
@@ -215,6 +232,7 @@ export default function LoadAdminBooks() {
           name="Categories"
           elements={categoryElements}
           toggleFunction={toggleShowCategory}
+          popupFunction={toggleAddCollection}
         />
         <LoadBooksCategorySection
           isOpen={showCategory}
@@ -222,6 +240,7 @@ export default function LoadAdminBooks() {
           name="Authors"
           elements={authorElements}
           toggleFunction={toggleShowCategory}
+          popupFunction={toggleAddCollection}
         />
         {/* elemtns end */}
       </div>
@@ -232,8 +251,9 @@ export default function LoadAdminBooks() {
         togglePopup={toggleBookInfo}
       />
       <LoadSelectedCategoryPage
-        isDisplayed={selectedCategoryDisplayed}
+        isDisplayed={selectedCategoryDisplayed.isDisplayed}
         togglePopup={toggleSelectedCategory}
+        header={selectedCategoryDisplayed.text}
       />
       <LoadAddCollectionPopup
         toggleFunction={toggleAddCollection}
