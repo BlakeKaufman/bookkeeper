@@ -43,6 +43,7 @@ const authorOptions = [
 export default function LoadAdminBooks() {
   adminRedirect("admin_books");
   const { user } = useAuth0();
+  const [expandedBook, setExpandedBook] = useState("");
 
   const [userBooks, setUserBooks] = useState([]);
   const [addNewBook, setAddNewBook] = useState(0);
@@ -61,8 +62,9 @@ export default function LoadAdminBooks() {
   const [addCollectionPopup, setAddCollectionPopup] = useState(false);
   const [addBookPopup, setAddBookPopup] = useState(false);
 
-  function toggleBookInfo() {
+  function toggleBookInfo(event) {
     setBookInfoDisplayed((prevDisplay) => !prevDisplay);
+    setExpandedBook(event.target.classList[1]);
   }
   function toggleSelectedCategory(event) {
     setSelectedCategoryDisplayed((prevDisplay) => {
@@ -249,11 +251,16 @@ export default function LoadAdminBooks() {
       <LoadBookInfoPopup
         isDisplayed={bookInfoDiplayed}
         togglePopup={toggleBookInfo}
+        book_id={expandedBook}
+        books={userBooks}
       />
       <LoadSelectedCategoryPage
         isDisplayed={selectedCategoryDisplayed.isDisplayed}
         togglePopup={toggleSelectedCategory}
         header={selectedCategoryDisplayed.text}
+        userBooks={userBooks}
+        toggleBookInfo={toggleBookInfo}
+        bookInfoDisplayed={bookInfoDiplayed} //adding popup z index
       />
       <LoadAddCollectionPopup
         toggleFunction={toggleAddCollection}

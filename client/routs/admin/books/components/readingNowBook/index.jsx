@@ -1,6 +1,6 @@
 export default function ReadingNowBooks(props) {
   return (
-    <div onClick={props.toggleBookInfo} className={`book ${props._id}`}>
+    <div className={`book`}>
       {/* the 1 is the book id */}
       <div className="img">
         <img src={props.book[0].value} alt="book cover" />
@@ -9,6 +9,10 @@ export default function ReadingNowBooks(props) {
       <div className="bar">
         <div className="fill"></div>
       </div>
+      <div
+        onClick={props.toggleBookInfo}
+        className={`screen ${props._id}`}
+      ></div>
     </div>
   );
 }

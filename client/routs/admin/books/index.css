@@ -131,8 +131,9 @@
 }
 .books_admin .reading_now .books_container .book {
   width: 110px;
-
   height: 180px;
+
+  position: relative;
 }
 .books_admin .reading_now .books_container .book:not(:last-child) {
   margin-right: 10px;
@@ -260,7 +261,7 @@
   text-align: center;
 }
 .books_admin .book_info_popup .topbar .top .book_tittle {
-  width: calc(100% - 100px);
+  width: calc(100% - 135px);
 
   font-size: 18px;
   font-weight: bold;
@@ -346,9 +347,15 @@
   width: 50%;
   max-width: 260px;
 
-  background-color: black;
-
   margin: 40px auto 20px;
+
+  border-radius: 10px;
+  overflow: hidden;
+}
+.books_admin .book_info_popup .selected_book .img img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 .books_admin .book_info_popup .selected_book h2 {
   font-size: 25px;
@@ -365,12 +372,12 @@
   display: flex;
 
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin: auto 0;
 }
 
 .books_admin .book_info_popup .selected_book .book_options .option {
-  width: calc(100% / 3);
+  width: calc(100% / 2);
   text-align: center;
 }
 .books_admin .book_info_popup .selected_book .book_options .option .icon {
@@ -379,7 +386,17 @@
   border-radius: 50%;
   background-color: black;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   margin: 0 auto 5px;
+}
+.books_admin .book_info_popup .selected_book .book_options .option .icon img {
+  width: 20px;
+  height: 20px;
+  filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(23deg)
+    brightness(100%) contrast(105%);
 }
 
 /* book facts */
@@ -915,6 +932,8 @@
   align-items: center;
 
   margin: 0 auto;
+
+  position: relative;
 }
 .books_admin .filtered_books_page .books_container .book:not(:last-child) {
   border-bottom: 1px solid gainsboro;
@@ -923,21 +942,31 @@
   height: 90px;
   width: 70px;
 
-  background-color: black;
+  overflow: hidden;
+  border-radius: 10px;
 
   margin-right: 10px;
 }
-.books_admin .filtered_books_page .books_container .book div:nth-child(2) {
+.books_admin .filtered_books_page .books_container .book .cover_img img {
+  height: 100%;
+  width: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+.books_admin .filtered_books_page .books_container .book .info_container {
   display: flex;
   flex-direction: column;
 
   margin-right: auto;
+
+  width: calc(100% - 110px);
 }
 .books_admin
   .filtered_books_page
   .books_container
   .book
-  div:nth-child(2)
+  .info_container
   span:first-child {
   font-weight: bold;
 }
@@ -945,41 +974,114 @@
   .filtered_books_page
   .books_container
   .book
-  div:nth-child(2)
-  span:last-child {
+  .info_container
+  span:nth-child(2) {
   opacity: 0.5;
+  text-align: left;
 }
-.books_admin .filtered_books_page .books_container .book div:nth-child(3) {
-  height: 20px;
-  width: 20px;
+.books_admin
+  .filtered_books_page
+  .books_container
+  .book
+  .info_container
+  .progress_container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  margin-top: 10px;
+}
+.books_admin
+  .filtered_books_page
+  .books_container
+  .book
+  .info_container
+  .progress_bar {
+  width: 100px;
+  height: 5px;
+
+  background-color: rgb(219, 219, 219);
+
+  position: relative;
+
+  margin: 0 10px 0 0;
+
+  border-radius: 10px;
+}
+.books_admin
+  .filtered_books_page
+  .books_container
+  .book
+  .info_container
+  .progress_bar
+  .fill {
+  width: 10%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  border-radius: 10px;
 
   background-color: black;
 }
+.books_admin
+  .filtered_books_page
+  .books_container
+  .book
+  .info_container
+  .progress_container
+  span {
+  font-size: 15px;
+}
+.books_admin .filtered_books_page .books_container .book .icon {
+  height: 15px;
+  width: 15px;
+}
 /* is empty container */
 .books_admin .filtered_books_page .books_container .is_empty_container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   margin: auto;
 }
-.books_admin .filtered_books_page .books_container .icon {
+.books_admin .filtered_books_page .books_container .is_empty_container .icon {
   height: 30px;
   width: 30px;
 
   margin: 0 auto 20px;
 }
-.books_admin .filtered_books_page .books_container span:nth-child(2) {
+.books_admin
+  .filtered_books_page
+  .books_container
+  .is_empty_container
+  span:nth-child(2) {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 10px;
 }
-.books_admin .filtered_books_page .books_container span:nth-child(3) {
+.books_admin
+  .filtered_books_page
+  .books_container
+  .is_empty_container
+  span:nth-child(3) {
   font-size: 16px;
   opacity: 0.5;
   text-align: center;
   margin-bottom: 20px;
 }
-.books_admin .filtered_books_page .books_container span:nth-child(4) {
+.books_admin
+  .filtered_books_page
+  .books_container
+  .is_empty_container
+  span:nth-child(4) {
   width: 100%;
   max-width: 300px;
   height: 35px;

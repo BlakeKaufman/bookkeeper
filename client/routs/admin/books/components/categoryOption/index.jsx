@@ -14,11 +14,11 @@ export default function CategoryOption(props) {
     ).length;
   } else if (props.name.toLowerCase() === "finished") {
     bookNum = props.userBooks.filter(
-      (book) => book.book[9].value === "finished"
+      (book) => book.book[9].value === "Finished"
     ).length;
   } else if (props.name.toLowerCase() === "abandoned") {
     bookNum = props.userBooks.filter(
-      (book) => book.book[9].value === "abandoned"
+      (book) => book.book[9].value === "Abandoned"
     ).length;
   }
   return (

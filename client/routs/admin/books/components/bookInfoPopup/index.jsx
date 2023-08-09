@@ -1,9 +1,28 @@
+import { useEffect, useState } from "react";
 import arrowLeft from "../../../../../assets/images/icons/angle-small-left.svg";
+import playButtonIcon from "../../../../../assets/images/icons/play.svg";
+import bookIcon from "../../../../../assets/images/icons/book.svg";
 
 export default function LoadBookInfoPopup(props) {
+  const [bookInformation, setBookInformation] = useState({});
+  console.log(props);
+
   const bookInfoStyle = {
     left: props.isDisplayed ? "0" : "100%",
   };
+
+  useEffect(() => {
+    if (!props.book_id) return;
+    const [selectedBook] = props.books.filter(
+      (book) => book._id === props.book_id
+    );
+
+    setBookInformation(selectedBook);
+  }, [props.book_id]);
+
+  if (!bookInformation.book) return;
+
+  console.log(bookInformation);
   return (
     <section style={bookInfoStyle} className="book_info_popup">
       <div className="topbar">
@@ -14,9 +33,8 @@ export default function LoadBookInfoPopup(props) {
             </div>
             <span>Back</span>
           </div>
-
           <span className="book_tittle">
-            <span>The fifth miracle</span>
+            <span>{bookInformation.book[2].value}</span>
           </span>
           <span>+</span>
           <div className="icon"></div>
@@ -31,22 +49,28 @@ export default function LoadBookInfoPopup(props) {
         </ul>
       </div>
       <section className="selected_book">
-        <div className="img"></div>
-        <h2>The fifth miracle</h2>
-        <span className="author_name">Author</span>
+        <div className="img">
+          <img src={bookInformation?.book[0].value} alt="book cover" />
+        </div>
+        <h2>{bookInformation?.book[2].value}</h2>
+        <span className="author_name">{bookInformation?.book[3].value}</span>
         <div className="book_options">
           <div className="option">
-            <div className="icon"></div>
+            <div className="icon">
+              <img src={playButtonIcon} alt="play button for reading mode" />
+            </div>
             <span>Reading Mode</span>
           </div>
           <div className="option">
-            <div className="icon"></div>
+            <div className="icon">
+              <img src={bookIcon} alt="books icon for category selector" />
+            </div>
             <span>Reading</span>
           </div>
-          <div className="option">
+          {/* <div className="option">
             <div className="icon"></div>
             <span>Book Chat</span>
-          </div>
+          </div> */}
         </div>
       </section>
       <section className="book_facts">
@@ -54,7 +78,7 @@ export default function LoadBookInfoPopup(props) {
         <div className="basic_infos">
           <div className="info">
             <span>Started</span>
-            <span>Jul 24, 23</span>
+            <span>Add Date</span>
           </div>
           <div className="info">
             <span>Finished</span>
@@ -150,27 +174,22 @@ export default function LoadBookInfoPopup(props) {
             <h1>About</h1>
           </div>
           <div className="about_container">
-            <span className="description">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod
-              optio ex fugit debitis, laudantium voluptate sunt totam,
-              voluptatem ullam mollitia itaque voluptatum, nemo ad. Velit
-              quaerat recusandae atque beatae. Modi?
-            </span>
+            <span className="description">{bookInformation.book[8].value}</span>
             <div className="grid_information">
               <span>Publisher</span>
-              <span>Penguin Publishing Group</span>
+              <span>{bookInformation.book[4].value}</span>
 
               <span>Published</span>
-              <span>2015</span>
+              <span>{bookInformation.book[5].value}</span>
 
               <span>ISBN</span>
-              <span>9872979712937234</span>
+              <span>{bookInformation.book[7].value}</span>
 
               <span>Pages</span>
-              <span>445</span>
+              <span>{bookInformation.book[1].value}</span>
 
               <span>Category</span>
-              <span>Medical, PHYCHOLOGY, Psychology</span>
+              <span>{bookInformation.book[6].value}</span>
             </div>
           </div>
         </div>
