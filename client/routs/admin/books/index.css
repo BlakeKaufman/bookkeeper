@@ -842,6 +842,98 @@
   border-radius: 10px;
 }
 
+/* reading mode */
+.books_admin .book_info_popup .reading_mode_container {
+  width: 100%;
+  height: 98%;
+
+  position: absolute;
+  z-index: 99;
+  bottom: 0;
+  left: 0;
+
+  background-color: var(--main_background_color);
+  transition: left 0.7s ease-in;
+
+  padding: 15px;
+  border-radius: 15px 15px 0 0;
+}
+.books_admin .book_info_popup .reading_mode_container .top {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+}
+.books_admin .book_info_popup .reading_mode_container .top span:first-child {
+  font-size: 20px;
+  margin: 0 auto;
+}
+.books_admin .book_info_popup .reading_mode_container .top span:last-child {
+  font-size: 20px;
+  font-weight: bold;
+}
+.books_admin .book_info_popup .reading_mode_container .img {
+  width: 200px;
+  height: 300px;
+
+  border-radius: 15px;
+  overflow: hidden;
+
+  background-color: black;
+
+  margin: 20px auto;
+}
+.books_admin .book_info_popup .reading_mode_container .img img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+.books_admin .book_info_popup .reading_mode_container .timer {
+  width: 100%;
+  display: block;
+  font-size: 50px;
+  text-align: center;
+}
+.books_admin .book_info_popup .reading_mode_container .options_container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.books_admin .book_info_popup .reading_mode_container .option {
+  width: calc(100% / 2);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.books_admin .book_info_popup .reading_mode_container .option .icon {
+  width: 80px;
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: black;
+  border-radius: 50%;
+
+  margin-bottom: 10px;
+
+  position: relative;
+}
+.books_admin .book_info_popup .reading_mode_container .option .icon img {
+  width: 20px;
+  height: 20px;
+  filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(23deg)
+    brightness(100%) contrast(105%);
+}
+
 /* ---------------------- */
 /* filtered books popup */
 /* ---------------------- */

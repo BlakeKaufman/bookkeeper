@@ -2,14 +2,23 @@ import { useEffect, useState } from "react";
 import arrowLeft from "../../../../../assets/images/icons/angle-small-left.svg";
 import playButtonIcon from "../../../../../assets/images/icons/play.svg";
 import bookIcon from "../../../../../assets/images/icons/book.svg";
+import LoadReadingMode from "./components/readingmode";
 
 export default function LoadBookInfoPopup(props) {
   const [bookInformation, setBookInformation] = useState({});
   console.log(props);
+  const [readingMode, setReadingMode] = useState(false);
 
   const bookInfoStyle = {
+    overflow: readingMode ? "hidden" : "hidden scroll",
     left: props.isDisplayed ? "0" : "100%",
   };
+
+  function toggleReadingMode() {
+    console.log("Test");
+
+    setReadingMode((prev) => !prev);
+  }
 
   useEffect(() => {
     if (!props.book_id) return;
@@ -55,7 +64,7 @@ export default function LoadBookInfoPopup(props) {
         <h2>{bookInformation?.book[2].value}</h2>
         <span className="author_name">{bookInformation?.book[3].value}</span>
         <div className="book_options">
-          <div className="option">
+          <div onClick={toggleReadingMode} className="option">
             <div className="icon">
               <img src={playButtonIcon} alt="play button for reading mode" />
             </div>
@@ -65,6 +74,7 @@ export default function LoadBookInfoPopup(props) {
             <div className="icon">
               <img src={bookIcon} alt="books icon for category selector" />
             </div>
+            {/* clcik event is not bowkring */}
             <span>Reading</span>
           </div>
           {/* <div className="option">
@@ -196,6 +206,11 @@ export default function LoadBookInfoPopup(props) {
 
         <a className="buy_CTA">Buy on Amazon</a>
       </section>
+
+      <LoadReadingMode
+        isDisplayed={readingMode}
+        toggleReadingMode={toggleReadingMode}
+      />
     </section>
   );
 }
