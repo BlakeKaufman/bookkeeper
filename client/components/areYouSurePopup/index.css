@@ -1,0 +1,69 @@
+#areYouSure {
+  width: 100%;
+  height: 100%;
+
+  top: 0;
+  left: 0;
+
+  position: absolute;
+  z-index: -1;
+
+  background-color: rgba(0, 0, 0, 0.191);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+
+  transition: opacity 0.5s ease;
+}
+#areYouSure .content {
+  width: 95%;
+
+  border-radius: 10px;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#areYouSure .content > * {
+  padding: 15px;
+}
+#areYouSure h1 {
+  font-size: 18px;
+  opacity: 0.5;
+}
+#areYouSure .subTitle {
+  font-size: 16px;
+  opacity: 0.5;
+  text-align: center;
+}
+
+#areYouSure .options {
+  width: 100%;
+  display: flex;
+  padding: unset;
+
+  border-top: 1px solid black;
+}
+
+#areYouSure .BTN {
+  width: calc(100% / 2);
+  padding: 15px;
+
+  font-size: 20px;
+  color: blue;
+
+  line-height: 35px;
+  text-align: center;
+  display: block;
+}
+#areYouSure .BTN:not(:last-child) {
+  border-right: 1px solid black;
+}
+#areYouSure .BTN:hover {
+  background-color: gainsboro;
+}

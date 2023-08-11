@@ -19,9 +19,14 @@ export default function LoadReadingMode(props) {
     setSubmitSessionPage(false);
   }
 
-  function toggleSubmitPage() {
-    if (submitSessionPage) setTimerInterval(setInterval(timer, 1000));
-    else clearInterval(timerInterval);
+  function toggleSubmitPage(event) {
+    if (event.target.textContent === "Finish") {
+      clearInterval(timerInterval);
+      setIsReading(false);
+    } else {
+      setTimerInterval(setInterval(timer, 1000));
+      setIsReading(true);
+    }
 
     setSubmitSessionPage((prev) => !prev);
   }
@@ -66,10 +71,10 @@ export default function LoadReadingMode(props) {
         <div className="top">
           <span>Reading mode</span>
           <span
-            onClick={() => {
+            onClick={(event) => {
               //   props.toggleReadingMode();
               //   clearSettins();
-              toggleSubmitPage();
+              toggleSubmitPage(event);
             }}
           >
             Finish

@@ -1,12 +1,14 @@
 import "./index.css";
 import angleLeftIcon from "../../../../../../../assets/images/icons/angle-small-left.svg";
 import { useEffect, useState } from "react";
+import ConfirmationPopup from "../../../../../../../components/areYouSurePopup";
 export default function SubmitReadingSessionPage(props) {
   const [startPageNum, setStartPageNum] = useState(100);
   const [form, setForm] = useState([
     { name: "ePage", value: "" },
     { name: "reading_notes", value: "" },
   ]);
+  const [confirmation, setConfirmation] = useState(false);
 
   function timerFormmating(value) {
     var h = Math.floor(value / 3600);
@@ -30,6 +32,9 @@ export default function SubmitReadingSessionPage(props) {
     return new Intl.DateTimeFormat("en-US", options).format(currentDate);
   }
 
+  function toggleDiscardConfirmation() {
+    setConfirmation((prev) => !prev);
+  }
   function manageForm(event) {
     const targetName = event.target.name;
 
@@ -42,11 +47,6 @@ export default function SubmitReadingSessionPage(props) {
     });
   }
 
-  function discardSession() {
-    props.clearSettings();
-    props.toggleReadingMode();
-  }
-
   useEffect(() => {
     // set start page num by calling db
   }, [props.duration]);
@@ -56,11 +56,11 @@ export default function SubmitReadingSessionPage(props) {
   };
   return (
     <div style={popupStyle} id="submit_reading_session_container">
-      <div onClick={props.toggleSubmitPage} className="top">
+      <div className="top">
         <div className="icon">
           <img src={angleLeftIcon} alt="small angle left for back button" />
         </div>
-        <span>Back</span>
+        <span onClick={props.toggleSubmitPage}>Back</span>
       </div>
       <div className="coverImage">
         <img src={props.bookCover} alt="book cover" />
@@ -98,11 +98,20 @@ export default function SubmitReadingSessionPage(props) {
       ></textarea>
 
       <div className="CTA_options">
-        <span onClick={discardSession} className="option">
+        <span onClick={toggleDiscardConfirmation} className="option">
           Discard
         </span>
         <span className="option">Save</span>
       </div>
+
+      <ConfirmationPopup
+        title="Confirm"
+        subTitle="Are you sure you want to discard this reading session?"
+        isDisplayed={confirmation}
+        cancelFunction={toggleDiscardConfirmation}
+        clearSettings={props.clearSettings}
+        toggleReadingMode={props.toggleReadingMode}
+      />
     </div>
   );
 }
