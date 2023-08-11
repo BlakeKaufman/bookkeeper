@@ -2,16 +2,28 @@ import playIcon from "../../../../../../../assets/images/icons/play.svg";
 import pauseIcon from "../../../../../../../assets/images/icons/pause.svg";
 import notesIcon from "../../../../../../../assets/images/icons/edit.svg";
 import { useEffect, useState } from "react";
+import SubmitReadingSessionPage from "../submitSession";
 
 export default function LoadReadingMode(props) {
   const [isReading, setIsReading] = useState(true);
   const [timerValue, setTimerValue] = useState([0, "00:00"]);
   const [timerInterval, setTimerInterval] = useState(null);
+  const [addNotePopup, setAddNotesPopup] = useState(false);
+
+  const [submitSessionPage, setSubmitSessionPage] = useState(false);
 
   function clearSettins() {
     setTimerValue([0, "00:00"]);
     setTimerInterval(null);
     setIsReading(true);
+    setSubmitSessionPage(false);
+  }
+
+  function toggleSubmitPage() {
+    if (submitSessionPage) setTimerInterval(setInterval(timer, 1000));
+    else clearInterval(timerInterval);
+
+    setSubmitSessionPage((prev) => !prev);
   }
 
   const timer = () => {
@@ -35,6 +47,9 @@ export default function LoadReadingMode(props) {
 
     setIsReading((prev) => !prev);
   }
+  function toggleAddNotes() {
+    window.alert("This doesn't work yet. Coming soon...");
+  }
   const popoutStyle = { left: props.isDisplayed ? "0%" : "100%" };
 
   function timerFormmating(value) {
@@ -52,14 +67,17 @@ export default function LoadReadingMode(props) {
           <span>Reading mode</span>
           <span
             onClick={() => {
-              props.toggleReadingMode();
-              clearSettins();
+              //   props.toggleReadingMode();
+              //   clearSettins();
+              toggleSubmitPage();
             }}
           >
             Finish
           </span>
         </div>
-        <div className="img"></div>
+        <div className="img">
+          <img src={props.bookCover} alt="bookCover" />
+        </div>
 
         <span className="timer">{timerValue[1]}</span>
 
@@ -79,7 +97,7 @@ export default function LoadReadingMode(props) {
             )}
             <span>{isReading ? "Pause" : "Resume"}</span>
           </div>
-          <div className="option">
+          <div onClick={toggleAddNotes} className="option">
             <div className="icon">
               <img src={notesIcon} alt="nodes icon" />
             </div>
@@ -87,6 +105,15 @@ export default function LoadReadingMode(props) {
           </div>
         </div>
       </div>
+
+      <SubmitReadingSessionPage
+        isDisplayed={submitSessionPage}
+        toggleSubmitPage={toggleSubmitPage}
+        bookCover={props.bookCover}
+        duration={timerValue[0]}
+        clearSettings={clearSettins}
+        toggleReadingMode={props.toggleReadingMode}
+      />
 
       {/* make backgroun img the cover image */}
     </div>

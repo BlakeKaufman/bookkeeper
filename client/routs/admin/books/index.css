@@ -853,7 +853,7 @@
   left: 0;
 
   background-color: var(--main_background_color);
-  transition: left 0.7s ease-in;
+  transition: left 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
 
   padding: 15px;
   border-radius: 15px 15px 0 0;

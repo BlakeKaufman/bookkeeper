@@ -210,6 +210,7 @@ export default function LoadBookInfoPopup(props) {
       <LoadReadingMode
         isDisplayed={readingMode}
         toggleReadingMode={toggleReadingMode}
+        bookCover={bookInformation.book[0].value}
       />
     </section>
   );
