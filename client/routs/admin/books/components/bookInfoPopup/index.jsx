@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import arrowLeft from "../../../../../assets/images/icons/angle-small-left.svg";
 import playButtonIcon from "../../../../../assets/images/icons/play.svg";
 import bookIcon from "../../../../../assets/images/icons/book.svg";
+import clockIcon from "../../../../../assets/images/icons/clock.svg";
+import arrowRightIcon from "../../../../../assets/images/icons/angle-right.svg";
 import LoadReadingMode from "./components/readingmode";
 
 export default function LoadBookInfoPopup(props) {
@@ -31,7 +33,23 @@ export default function LoadBookInfoPopup(props) {
 
   if (!bookInformation.book) return;
 
-  console.log(bookInformation);
+  const sessionElements =
+    bookInformation.readingSessions &&
+    bookInformation.readingSessions.map((session, id) => {
+      return (
+        <div key={id} className="session">
+          <div className="icon">
+            <img src={clockIcon} alt="clock icon for reading session" />
+          </div>
+          <span>{session.date.split(",").slice(0, 2).join(",")}</span>
+          <span>{session.duration}</span>
+          <div className="icon">
+            <img src={arrowRightIcon} alt="angle right icon" />
+          </div>
+        </div>
+      );
+    });
+
   return (
     <section style={bookInfoStyle} className="book_info_popup">
       <div className="topbar">
@@ -168,15 +186,21 @@ export default function LoadBookInfoPopup(props) {
         <div className="reading_sessions facts_container">
           <div className="top">
             <h1>Reading Sessions</h1>
-            <span className="num_sessions">1</span>
+            <span className="num_sessions">
+              {sessionElements ? sessionElements.length : 0}
+            </span>
           </div>
           <div className="sessions_container">
-            <div className="session">
-              <div className="icon"></div>
+            {/* <div className="session">
+              <div className="icon">
+                <img src={clockIcon} alt="clock icon for reading session" />
+              </div>
               <span>July 24, 2023</span>
               <span>30m</span>
               <span>++</span>
-            </div>
+            </div> */}
+            {!sessionElements && <span>No reading sessions yet.</span>}
+            {sessionElements}
           </div>
         </div>
         <div className="about facts_container">
@@ -211,6 +235,8 @@ export default function LoadBookInfoPopup(props) {
         isDisplayed={readingMode}
         toggleReadingMode={toggleReadingMode}
         bookCover={bookInformation.book[0].value}
+        book={bookInformation}
+        recalUserBooks={props.recalUserBooks}
       />
     </section>
   );

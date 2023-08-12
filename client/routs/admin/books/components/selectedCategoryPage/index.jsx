@@ -46,19 +46,24 @@ export default function LoadSelectedCategoryPage(props) {
   const bookElements = categoryBooks.map((book, id) => {
     let imageIcon;
     let fillWidth;
-    const pagesRead = 100; // get info from database when I add that feature
+    const pagesRead =
+      book.readingSessions &&
+      Number(book.readingSessions[book.readingSessions.length - 1].finish); // get info from database when I add that feature
+
     const totalPages = book.book[1].value;
+
     switch (book.book[9].value) {
       case "To Read":
         imageIcon = toReadIcon;
         break;
       case "Reading":
         imageIcon = readingNowIcon;
+        fillWidth = ((pagesRead ? pagesRead : 0) / totalPages) * 100; // book length pages
+
         break;
       case "Finished":
         imageIcon = finishedIcon;
         // make calculation off of toal book pages read in database entry when I add that
-        fillWidth = (pagesRead / totalPages) * 100; // book length pages
 
         break;
       case "Abandoned":
@@ -69,7 +74,7 @@ export default function LoadSelectedCategoryPage(props) {
     }
 
     const fillStyle = {
-      width: fillWidth,
+      width: `${fillWidth}px`,
     };
 
     return (
@@ -86,7 +91,7 @@ export default function LoadSelectedCategoryPage(props) {
                 <div style={fillStyle} className="fill"></div>
               </div>
               <span>
-                {pagesRead}/{totalPages} pages
+                {pagesRead ? pagesRead : 0}/{totalPages} pages
               </span>
             </div>
           )}

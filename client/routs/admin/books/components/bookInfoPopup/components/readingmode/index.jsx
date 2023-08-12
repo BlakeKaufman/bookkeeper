@@ -118,6 +118,8 @@ export default function LoadReadingMode(props) {
         duration={timerValue[0]}
         clearSettings={clearSettins}
         toggleReadingMode={props.toggleReadingMode}
+        book={props.book}
+        recalUserBooks={props.recalUserBooks}
       />
 
       {/* make backgroun img the cover image */}

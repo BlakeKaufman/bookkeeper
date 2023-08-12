@@ -131,3 +131,23 @@
   background-color: black;
   color: white;
 }
+
+/* confirmation that data was sumbited popup */
+#submit_reading_session_container .endingReadingSessionContainer {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  background-color: rgba(0, 0, 0, 0.127);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}

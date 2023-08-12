@@ -253,6 +253,7 @@ export default function LoadAdminBooks() {
         togglePopup={toggleBookInfo}
         book_id={expandedBook}
         books={userBooks}
+        recalUserBooks={recalUserBooks}
       />
       <LoadSelectedCategoryPage
         isDisplayed={selectedCategoryDisplayed.isDisplayed}
