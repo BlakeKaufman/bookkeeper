@@ -1,11 +1,9 @@
-// const express = require("express");
-// const mysql = require("mysql2");
 import DBinformation from "../databaseInformation.json";
 import { MongoClient, ServerApiVersion } from "mongodb";
-// const app = express();
-// const { MongoClient, ServerApiVersion } = require("mongodb");
+
 const uri = `mongodb+srv://${DBinformation.user}:${DBinformation.pass}@${DBinformation.user}.zgq19jn.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri);
+console.log(uri);
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 
@@ -21,6 +19,7 @@ export async function handler(event, context) {
       body: JSON.stringify({ error: "Invalid request body or empty payload" }),
     };
   }
+
   try {
     await client.connect();
 
