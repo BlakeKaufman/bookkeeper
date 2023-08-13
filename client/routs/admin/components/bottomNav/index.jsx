@@ -26,7 +26,7 @@ export default function LoadBottomNavAdmin(props) {
             <img src={wishListIcon} alt="wishlist icon for wishlist category" />
           </div>
           <span>WishList</span>
-          <div className="screen cards"></div>
+          <div className="screen wishlist"></div>
         </NavLink>
         <NavLink
           className={`nav_item ${props.activeNav === "stats" && "active"}`}

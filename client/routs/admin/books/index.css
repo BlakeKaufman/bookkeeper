@@ -229,7 +229,7 @@
   height: fit-content;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 5;
 
   background-color: rgba(14, 14, 14, 0.596);
 
@@ -315,6 +315,7 @@
   /* width: calc(100% / 5); */
   text-align: center;
   opacity: 0.5;
+  transition: opacity 0.5s ease;
 }
 .books_admin .book_info_popup .topbar .nav_container .active_item {
   opacity: 1;
@@ -328,6 +329,8 @@
   height: 3px;
 
   background-color: white;
+
+  transition: transform 0.5s ease, width 0.5s ease;
 }
 
 /* selected book */

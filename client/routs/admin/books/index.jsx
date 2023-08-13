@@ -54,7 +54,7 @@ export default function LoadAdminBooks() {
     text: "",
   });
   const [showCategory, setShowCategory] = useState([
-    { name: "library", isDisplayed: false },
+    { name: "library", isDisplayed: true },
     { name: "collections", isDisplayed: false },
     { name: "categories", isDisplayed: false },
     { name: "authors", isDisplayed: false },
@@ -220,30 +220,30 @@ export default function LoadAdminBooks() {
           elements={libraryElements}
           toggleFunction={toggleShowCategory}
         />
-        <LoadBooksCategorySection
+        {/* <LoadBooksCategorySection
           isOpen={showCategory}
           icon={angleLeftIcon}
           name="Collections"
           elements={collectionElements}
           toggleFunction={toggleShowCategory}
           popupFunction={toggleAddCollection}
-        />
-        <LoadBooksCategorySection
+        /> */}
+        {/* <LoadBooksCategorySection
           isOpen={showCategory}
           icon={angleLeftIcon}
           name="Categories"
           elements={categoryElements}
           toggleFunction={toggleShowCategory}
           popupFunction={toggleAddCollection}
-        />
-        <LoadBooksCategorySection
+        /> */}
+        {/* <LoadBooksCategorySection
           isOpen={showCategory}
           icon={angleLeftIcon}
           name="Authors"
           elements={authorElements}
           toggleFunction={toggleShowCategory}
           popupFunction={toggleAddCollection}
-        />
+        /> */}
         {/* elemtns end */}
       </div>
       <LoadBottomNavAdmin activeNav={"books"} />
