@@ -4,12 +4,20 @@ import playButtonIcon from "../../../../../assets/images/icons/play.svg";
 import bookIcon from "../../../../../assets/images/icons/book.svg";
 import clockIcon from "../../../../../assets/images/icons/clock.svg";
 import arrowRightIcon from "../../../../../assets/images/icons/angle-right.svg";
+import bookMark from "../../../../../assets/images/icons/bookmark.svg";
+import checkIcon from "../../../../../assets/images/icons/check.svg";
+import trashIcon from "../../../../../assets/images/icons/trash.svg";
 import LoadReadingMode from "./components/readingmode";
 
 export default function LoadBookInfoPopup(props) {
   const [bookInformation, setBookInformation] = useState({});
   console.log(props);
   const [readingMode, setReadingMode] = useState(false);
+  const [changeReadingType, setChangeReadingType] = useState([]);
+
+  function isObjEmpty(obj) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+  }
 
   const bookInfoStyle = {
     overflow: readingMode ? "hidden" : "hidden scroll",
@@ -17,9 +25,25 @@ export default function LoadBookInfoPopup(props) {
   };
 
   function toggleReadingMode() {
-    console.log("Test");
-
     setReadingMode((prev) => !prev);
+  }
+
+  function toggleLibraryType(event) {
+    let targetType = event.target.classList[1];
+    if (targetType === "ToRead") {
+      targetType = "To Read";
+    } else
+      setChangeReadingType((prev) => {
+        return prev.map((type) => {
+          if (type.name === targetType)
+            return { ...type, isSelected: !type.isSelected };
+          else return { ...type, isSelected: false };
+        });
+      });
+
+    // add confirmation popup
+    // send update to DB
+    // reaload page when update is confirmed which means add a peram to useeffect
   }
 
   useEffect(() => {
@@ -29,7 +53,65 @@ export default function LoadBookInfoPopup(props) {
     );
 
     setBookInformation(selectedBook);
+    setChangeReadingType([
+      {
+        name: "dropdown",
+        isDisplayed: false,
+      },
+      {
+        name: "To Read",
+        alt_name: "ToRead",
+        isSelected:
+          !isObjEmpty(selectedBook) &&
+          selectedBook.book[9].value === "To Read" &&
+          true,
+        img: bookMark,
+      },
+      {
+        name: "Reading",
+        isSelected:
+          !isObjEmpty(selectedBook) &&
+          selectedBook.book[9].value === "Reading" &&
+          true,
+        img: bookIcon,
+      },
+      {
+        name: "Finished",
+        isSelected:
+          !isObjEmpty(selectedBook) &&
+          selectedBook.book[9].value === "Finished" &&
+          true,
+        img: checkIcon,
+      },
+      {
+        name: "Abandoned",
+        isSelected:
+          !isObjEmpty(selectedBook) &&
+          selectedBook.book[9].value === "Abanonded" &&
+          true,
+        img: trashIcon,
+      },
+    ]);
   }, [props.book_id]);
+
+  const readingTypeDropdownElements = changeReadingType.map((type, id) => {
+    if (id === 0) return;
+    return (
+      <li key={id}>
+        <div className="list-icon">
+          {type.isSelected && <img src={checkIcon} alt="check icon" />}
+        </div>
+
+        {type.name}
+        <div className="list-icon">
+          <img src={type.img} alt="icon" />
+        </div>
+        <div
+          className={`screen ${type.alt_name ? type.alt_name : type.name}`}
+        ></div>
+      </li>
+    );
+  });
 
   if (!bookInformation.book) return;
 
@@ -92,7 +174,10 @@ export default function LoadBookInfoPopup(props) {
             <div className="icon">
               <img src={bookIcon} alt="books icon for category selector" />
             </div>
-            {/* clcik event is not bowkring */}
+            <ul onClick={toggleLibraryType} className="options_container">
+              {readingTypeDropdownElements}
+            </ul>
+
             <span>Reading</span>
           </div>
           {/* <div className="option">

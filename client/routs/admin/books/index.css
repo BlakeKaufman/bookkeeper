@@ -379,6 +379,8 @@
 .books_admin .book_info_popup .selected_book .book_options .option {
   width: calc(100% / 2);
   text-align: center;
+
+  position: relative;
 }
 .books_admin .book_info_popup .selected_book .book_options .option .icon {
   width: 70px;
@@ -397,6 +399,75 @@
   height: 20px;
   filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(23deg)
     brightness(100%) contrast(105%);
+}
+
+/* dropdown */
+.books_admin .book_info_popup .selected_book .book_options .options_container {
+  width: 215px;
+  height: fit-content;
+  position: absolute;
+  bottom: 90%;
+  right: 37%;
+
+  background-color: gainsboro;
+
+  list-style: none;
+
+  border-radius: 10px;
+}
+.books_admin
+  .book_info_popup
+  .selected_book
+  .book_options
+  .options_container
+  li {
+  display: flex;
+  align-items: center;
+
+  padding: 10px;
+  position: relative;
+}
+.books_admin
+  .book_info_popup
+  .selected_book
+  .book_options
+  .options_container
+  li:not(:last-child) {
+  border-bottom: 1px solid gray;
+}
+.books_admin
+  .book_info_popup
+  .selected_book
+  .book_options
+  .options_container
+  .list-icon:first-child {
+  width: 15px;
+  height: 15px;
+
+  margin-right: 10px;
+  margin-left: 5px;
+}
+.books_admin
+  .book_info_popup
+  .selected_book
+  .book_options
+  .options_container
+  .list-icon:nth-child(2) {
+  width: 15px;
+  height: 15px;
+
+  margin-left: auto;
+  margin-right: 5px;
+}
+.books_admin
+  .book_info_popup
+  .selected_book
+  .book_options
+  .options_container
+  .list-icon
+  img {
+  height: 100%;
+  width: 100%;
 }
 
 /* book facts */
