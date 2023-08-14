@@ -37,7 +37,7 @@ export default function LoadLandingPage() {
 
         <LoginButton />
 
-        <p>Privacy-first. No signup required</p>
+        <p>Privacy-first. Only email reqiured</p>
       </div>
     </div>
   );

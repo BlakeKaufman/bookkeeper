@@ -523,7 +523,10 @@
 .books_admin .book_info_popup .book_facts .basic_infos .info span:first-child {
   opacity: 0.5;
   margin-bottom: 10px;
-  font-size: 14px;
+  font-size: 15px;
+}
+.books_admin .book_info_popup .book_facts .basic_infos .info span:last-child {
+  font-size: 16px;
 }
 
 /* cards */
@@ -680,7 +683,7 @@
   border-radius: 20px;
 }
 /* nav */
-.books_admin .book_info_popup .book_facts .stats_trends .stats_container .nav {
+/* .books_admin .book_info_popup .book_facts .stats_trends .stats_container .nav {
   display: flex;
   align-items: center;
 
@@ -692,7 +695,7 @@
   overflow: hidden;
 
   margin-bottom: 10px;
-}
+} 
 .books_admin
   .book_info_popup
   .book_facts
@@ -722,7 +725,7 @@
   z-index: 1;
   background-color: rgb(149, 149, 149);
   border-radius: 8px;
-}
+}*/
 
 /* graph */
 .books_admin

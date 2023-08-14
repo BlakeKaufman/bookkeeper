@@ -2,9 +2,14 @@ import "./index.css";
 
 export default function ConfirmationPopup(props) {
   function discard() {
-    props.cancelFunction();
-    props.clearSettings();
-    props.toggleReadingMode();
+    if (props.from === "changeLibraryOptions") {
+      props.submitChange();
+      props.cancelFunction();
+    } else {
+      props.cancelFunction();
+      props.clearSettings();
+      props.toggleReadingMode();
+    }
   }
   function cancel() {
     props.cancelFunction();
@@ -22,7 +27,7 @@ export default function ConfirmationPopup(props) {
 
         <div className="options">
           <span onClick={discard} className="discardBTN BTN">
-            Discard
+            {props.continueText ? props.continueText : "Discard"}
           </span>
           <span onClick={cancel} className="cancelBTN BTN">
             Cancel

@@ -9,7 +9,8 @@ import checkIcon from "../../../../../assets/images/icons/check.svg";
 import trashIcon from "../../../../../assets/images/icons/trash.svg";
 import LoadReadingMode from "./components/readingmode";
 import ConfirmationPopup from "../../../../../components/areYouSurePopup";
-import { element, elementType } from "prop-types";
+
+import AddRatingPopup from "./components/addRating";
 
 export default function LoadBookInfoPopup(props) {
   const [bookInformation, setBookInformation] = useState({});
@@ -19,6 +20,10 @@ export default function LoadBookInfoPopup(props) {
   const [libraryType, setLibraryType] = useState(false);
   const [confirmationPopup, setConfirmationPopup] = useState(false);
   const [navBar, setNavBar] = useState(null);
+  const [addRating, setAddRating] = useState(false);
+  const [realoadPage, setReloadPage] = useState(0);
+
+  const [rating, setRating] = useState(null);
 
   function isObjEmpty(obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
@@ -31,6 +36,9 @@ export default function LoadBookInfoPopup(props) {
 
   function toggleReadingMode() {
     setReadingMode((prev) => !prev);
+  }
+  function toggleAddRating() {
+    setAddRating((prev) => !prev);
   }
 
   function toggleLibraryType(event) {
@@ -69,6 +77,7 @@ export default function LoadBookInfoPopup(props) {
     );
 
     setBookInformation(selectedBook);
+    setRating(selectedBook.bookRating ? selectedBook.bookRating : 0);
     setChangeReadingType([
       {
         name: "dropdown",
@@ -108,7 +117,7 @@ export default function LoadBookInfoPopup(props) {
         img: trashIcon,
       },
     ]);
-  }, [props.book_id]);
+  }, [props.book_id, realoadPage]);
 
   const readingTypeDropdownElements = changeReadingType.map((type, id) => {
     if (id === 0) return;
@@ -184,8 +193,6 @@ export default function LoadBookInfoPopup(props) {
       .sort((a, b) => a.top - b.top)
       .filter((item) => item.top <= 65);
 
-    console.log(filteredActiveNav);
-
     if (filteredActiveNav.length === 0) {
       activeNav = elementsArr[0];
     } else {
@@ -243,8 +250,6 @@ export default function LoadBookInfoPopup(props) {
         <div style={barStyling} className="underline"></div>
       </>
     );
-    // top < -17 nav should be at cards
-    // top < -285 nav should be at trends
   }
 
   function submitChange() {
@@ -284,10 +289,70 @@ export default function LoadBookInfoPopup(props) {
       });
   }
 
+  function calcTotalReadingTime() {
+    if (!bookInformation.readingSessions) return "N/A";
+    let totalReadingTime = bookInformation.readingSessions.reduce(
+      (acc, curr) => {
+        const duration = curr.duration.split(" ");
+        const hours = Number(duration[0]) * 60;
+        const min = Number(duration[2]);
+
+        return acc + min + hours;
+      },
+      0
+    );
+
+    if (totalReadingTime > 60) {
+      return `${Math.floor(totalReadingTime / 60)} h ${
+        totalReadingTime % 60
+      } m`;
+    } else {
+      return `0 h ${totalReadingTime} m`;
+    }
+  }
+
+  function pagesRead() {
+    return bookInformation.readingSessions
+      ? bookInformation.readingSessions[
+          bookInformation.readingSessions.length - 1
+        ].finish
+      : "N/A";
+  }
+
+  function readingSpeed(type) {
+    if (calcTotalReadingTime() === "N/A") return "N/A";
+    const totalTimeRead = calcTotalReadingTime().split(" ");
+    const hours = totalTimeRead[0];
+    const min = totalTimeRead[2];
+    const toatlPages = pagesRead();
+    if (type === "min" && toatlPages != "N/A") {
+      return (toatlPages / (hours * 60 + min)).toFixed(2);
+    } else if (type === "hours" && toatlPages != "N/A") {
+      if (hours === 0) {
+        return (toatlPages * (60 / min)).toFixed(2);
+      } else {
+        return (toatlPages / (hours + min / 60)).toFixed(2);
+      }
+    }
+  }
+
+  function estTimeLeft() {
+    const pagesPerMin = readingSpeed("min");
+    const totalPages = Number(bookInformation.book[1].value);
+    const pgRead = pagesRead();
+    const minLeft = ((totalPages - pgRead) / pagesPerMin).toFixed(2);
+
+    console.log(totalPages, pgRead, pagesPerMin);
+
+    if (pgRead === "N/A") return "N/A";
+    return `${Math.floor(minLeft / 60)} h ${(minLeft % 60).toFixed(2)} m`;
+  }
+
   const libraryTypeDropdownStyle = {
     display: libraryType ? "block" : "none",
   };
 
+  console.log(bookInformation, "book information");
   return (
     <section
       onScroll={changeNav}
@@ -362,16 +427,38 @@ export default function LoadBookInfoPopup(props) {
         <div className="slice"></div>
         <div className="basic_infos">
           <div className="info">
-            <span>Started</span>
-            <span>Add Date</span>
+            <span>First Read</span>
+            <span>
+              {bookInformation.readingSessions &&
+                bookInformation.readingSessions[0].date
+                  .split(",")
+                  .slice(0, 2)
+                  .join(",")}
+              {!bookInformation.readingSessions && "N/A"}
+            </span>
           </div>
           <div className="info">
-            <span>Finished</span>
-            <span>Add Date</span>
+            <span>Last Read</span>
+            <span>
+              {bookInformation.readingSessions &&
+                bookInformation.readingSessions[
+                  bookInformation.readingSessions.length - 1
+                ].date
+                  .split(",")
+                  .slice(0, 2)
+                  .join(",")}
+              {!bookInformation.readingSessions && "N/A"}
+            </span>
           </div>
-          <div className="info">
+          <div onClick={toggleAddRating} className="info">
             <span>Rating</span>
-            <span>Add Rating</span>
+            <span>
+              {rating
+                ? rating != "0.0"
+                  ? rating.toFixed(1) + "/5.0"
+                  : "Add Rating"
+                : "Add Rating"}
+            </span>
           </div>
         </div>
         <div className="cards facts_container">
@@ -406,36 +493,42 @@ export default function LoadBookInfoPopup(props) {
             <h1>Stats & Trends</h1>
           </div>
           <div className="stats_container">
-            <div className="nav">
+            {/* <div className="nav">
               <span>Pages Read</span>
               <span>Reading Time</span>
               <div className="background"></div>
-            </div>
+            </div> */}
             <div className="graph">GRAPH</div>
             <div className="stats">
               <div>
-                <span>Reading Time</span>
-                <span>30m</span>
+                <span>Total Time</span>
+                <span>{calcTotalReadingTime()}</span>
               </div>
               <div>
                 <span>Est. time left</span>
-                <span>60m</span>
+                <span>{estTimeLeft()}</span>
               </div>
               <div>
                 <span>Pages read</span>
-                <span>150</span>
+                <span>
+                  {bookInformation.readingSessions
+                    ? bookInformation.readingSessions[
+                        bookInformation.readingSessions.length - 1
+                      ].finish
+                    : "N/A"}
+                </span>
               </div>
               <div>
                 <span>Longest streak</span>
-                <span>1 day</span>
+                <span>N/A</span>
               </div>
               <div>
                 <span>Pages/hour</span>
-                <span>298.0</span>
+                <span>{readingSpeed("hours")}</span>
               </div>
               <div>
                 <span>Pages/min</span>
-                <span>5.0</span>
+                <span>{readingSpeed("min")}</span>
               </div>
             </div>
           </div>
@@ -503,6 +596,15 @@ export default function LoadBookInfoPopup(props) {
         title="Confirm"
         subTitle="Are you sure you want to submit this change?"
         submitChange={submitChange}
+      />
+      <AddRatingPopup
+        isDisplayed={addRating}
+        toggleAddRating={toggleAddRating}
+        bookInformation={bookInformation}
+        realoadPage={props.recalUserBooks}
+        setRating={setRating}
+        rating={rating}
+        setReloadPage={setReloadPage}
       />
     </section>
   );
