@@ -60,6 +60,41 @@ export default function LoadWishlistAdmin() {
   function editFunction() {
     if (isInEditMode) {
       // update list
+      const removedBookIndex = removingBooks.map((book) => {
+        if (book.isSelected) return book.pos;
+      });
+
+      const newBookList = bookList
+        .map((book, id) => {
+          if (removedBookIndex.indexOf(id) == -1) return book;
+        })
+        .filter((book) => book);
+
+      const localHostURl =
+        "http://localhost:8888/.netlify/functions/wishlist_update";
+      const productionURL =
+        "https://bookkeeperwebsite.netlify.app/.netlify/functions/wishlist_update";
+
+      const requestBody = {
+        user: user.sub,
+        wishlist: newBookList,
+      };
+      const options = {
+        method: "POST", // HTTP method (GET, POST, PUT, DELETE, etc.)
+        headers: {
+          "Content-Type": "application/json", // Set the content type to JSON since we're sending JSON data
+        },
+        body: JSON.stringify(requestBody), // Convert the request body to JSON string
+      };
+      fetch(localHostURl, options)
+        .then((response) => response.json())
+        .then((data) => {
+          setIsInEditMode(false);
+          setReloadPage((prev) => (prev += 1));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       setIsInEditMode(true);
     }

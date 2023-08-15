@@ -42,6 +42,9 @@ export default function AddRatingPopup(props) {
         props.realoadPage((prev) => (prev += 1));
         props.toggleAddRating();
         props.setReloadPage();
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 

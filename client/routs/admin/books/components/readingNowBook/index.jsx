@@ -1,5 +1,4 @@
 export default function ReadingNowBooks(props) {
-  console.log(props, ")))))");
   function dynamicPagesContent() {
     const bookLength = props.book[1].value;
     const pagesRead =

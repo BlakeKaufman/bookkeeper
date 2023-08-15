@@ -11,7 +11,6 @@ export default function LoadAddCollectionPopup(props) {
 
   function postTODB() {
     if (!collectionInfo) return;
-    console.log(collectionInfo);
   }
   return (
     <section style={popupStyle} className="add_collection_popup">

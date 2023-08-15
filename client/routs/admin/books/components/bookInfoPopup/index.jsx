@@ -14,7 +14,7 @@ import AddRatingPopup from "./components/addRating";
 
 export default function LoadBookInfoPopup(props) {
   const [bookInformation, setBookInformation] = useState({});
-  console.log(props);
+
   const [readingMode, setReadingMode] = useState(false);
   const [changeReadingType, setChangeReadingType] = useState([]);
   const [libraryType, setLibraryType] = useState(false);
@@ -65,7 +65,6 @@ export default function LoadBookInfoPopup(props) {
   }
 
   function toggleReadingDropdown(event) {
-    console.log(event);
     if (event.target.classList.contains("readingMode")) setLibraryType(true);
     else setLibraryType(false);
   }
@@ -284,8 +283,10 @@ export default function LoadBookInfoPopup(props) {
     fetch(localHostURl, options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         props.recalUserBooks();
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
@@ -342,8 +343,6 @@ export default function LoadBookInfoPopup(props) {
     const pgRead = pagesRead();
     const minLeft = ((totalPages - pgRead) / pagesPerMin).toFixed(2);
 
-    console.log(totalPages, pgRead, pagesPerMin);
-
     if (pgRead === "N/A") return "N/A";
     return `${Math.floor(minLeft / 60)} h ${(minLeft % 60).toFixed(2)} m`;
   }
@@ -352,7 +351,6 @@ export default function LoadBookInfoPopup(props) {
     display: libraryType ? "block" : "none",
   };
 
-  console.log(bookInformation, "book information");
   return (
     <section
       onScroll={changeNav}

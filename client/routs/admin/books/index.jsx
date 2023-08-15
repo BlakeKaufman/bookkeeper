@@ -170,8 +170,10 @@ export default function LoadAdminBooks() {
     fetch(localhostURL, options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setUserBooks(data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, [addNewBook]);
 
