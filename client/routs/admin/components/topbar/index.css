@@ -17,8 +17,8 @@
   text-align: center;
 }
 .admin_top_Bar .icon {
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
 }
 
 .admin_top_Bar .content_container {
@@ -26,7 +26,7 @@
 
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
 
   margin: 0 auto;
 }

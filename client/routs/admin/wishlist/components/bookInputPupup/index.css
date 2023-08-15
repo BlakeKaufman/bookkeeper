@@ -1,0 +1,80 @@
+#wishlistBookInput {
+  width: 100%;
+  height: 100%;
+
+  top: 0;
+  left: 0;
+
+  position: absolute;
+  z-index: -1;
+
+  background-color: rgba(0, 0, 0, 0.191);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+
+  transition: opacity 0.5s ease;
+}
+#wishlistBookInput .content {
+  width: 95%;
+
+  border-radius: 10px;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#wishlistBookInput h1 {
+  font-size: 18px;
+  opacity: 0.5;
+  text-align: center;
+  margin: 0 auto;
+  padding: 15px 0 0;
+}
+#wishlistBookInput .subTitle {
+  font-size: 16px;
+  opacity: 0.5;
+  text-align: center;
+  margin: 10px auto;
+}
+#wishlistBookInput input {
+  width: 95%;
+  height: 35px;
+
+  padding: 0 0 0 10px;
+  margin: 20px auto;
+
+  line-height: 35px;
+
+  border-radius: 7px;
+}
+
+#wishlistBookInput .options {
+  width: 100%;
+  display: flex;
+  padding: unset;
+
+  border-top: 1px solid black;
+}
+
+#wishlistBookInput .BTN {
+  width: calc(100% / 2);
+  padding: 10px;
+
+  color: blue;
+
+  line-height: 35px;
+  text-align: center;
+  display: block;
+}
+#wishlistBookInput .BTN:not(:last-child) {
+  border-right: 1px solid black;
+}
+#wishlistBookInput .BTN:hover {
+  background-color: gainsboro;
+}
