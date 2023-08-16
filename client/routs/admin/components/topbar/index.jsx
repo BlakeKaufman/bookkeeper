@@ -9,12 +9,12 @@ export default function AdminTopBar(props) {
         <img src={props.icon} alt={`icon for ${props.name} top bar`} />
       </div>
     );
-  } else if (props.name.toLowerCase() === "stats") {
-    iconClickEvent = (
-      <div onClick={props.clickEvent} className="icon">
-        <img src={props.icon} alt={`icon for ${props.name} top bar`} />
-      </div>
-    );
+    // } else if (props.name.toLowerCase() === "stats") {
+    //   iconClickEvent = (
+    //     <div onClick={props.clickEvent} className="icon">
+    //       <img src={props.icon} alt={`icon for ${props.name} top bar`} />
+    //     </div>
+    //   );
   } else if (props.name.toLowerCase() === "wishlist") {
     iconClickEvent = (
       <div

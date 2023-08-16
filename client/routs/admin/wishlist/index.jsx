@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import adminRedirect from "../../../../auth0/redirect";
+
 import LoadBottomNavAdmin from "../components/bottomNav";
 import AdminTopBar from "../components/topbar";
 
@@ -5,11 +9,11 @@ import plusIcon from "../../../assets/images/icons/plus.svg";
 
 import "./index.css";
 import NoteBookLine from "./components/line";
-import { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+
 import LoadWishlistBookInput from "./components/bookInputPupup";
 
 export default function LoadWishlistAdmin() {
+  adminRedirect("admin_wishlist");
   const { user } = useAuth0();
   const [bookList, setBookList] = useState([]);
   const [addBookPopup, setAddBookPopup] = useState(false);

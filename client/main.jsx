@@ -17,6 +17,10 @@ function changeBodyHeight() {
     document.body.style.height = `${window.innerHeight}px`;
   }
 }
+
+window.onresize = function () {
+  changeBodyHeight();
+};
 changeBodyHeight();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
