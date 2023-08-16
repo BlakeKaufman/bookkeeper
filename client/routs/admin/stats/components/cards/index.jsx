@@ -1,3 +1,5 @@
+import BookCounterComponent from "../../../../../components/counterComponent";
+
 export default function StatsCards(props) {
   let content;
   const year = new Date().getFullYear();
@@ -14,8 +16,6 @@ export default function StatsCards(props) {
   function numBooksLeftInGoal() {
     return Number(profile.content.book_goal) - Number(finsihedBooks.length);
   }
-
-  console.log(finsihedBooks);
 
   const barStyling = {
     width: `${(finsihedBooks.length / profile.content.book_goal) * 100}%`,
@@ -40,37 +40,50 @@ export default function StatsCards(props) {
   }
 
   if (props.cardName === "yearly_reading_goal") {
-    content = (
-      <>
-        <span className="goal">
-          {finsihedBooks.length} of {profile.content.book_goal} books
-        </span>
-        <div className="bar">
-          <div style={barStyling} className="fill"></div>
-        </div>
+    if (!props.isInEditMode) {
+      content = (
+        <>
+          <span className="goal">
+            {finsihedBooks.length} of {profile.content.book_goal} books
+          </span>
 
-        <div className="finishedBooksContainer">
-          <div className="content">{finishedBookElements}</div>
-        </div>
-
-        <div className="message">
-          <div className="icon">
-            <img src={props.altIcon} alt="icon to make you see the message" />
+          <div className="bar">
+            <div style={barStyling} className="fill"></div>
           </div>
-          {finsihedBooks.length === 0 && (
-            <span>
-              You've got this! Finish a book to make progress tword your goal.
-            </span>
-          )}
+
           {finsihedBooks.length != 0 && (
-            <span>
-              You've got this! Finish {numBooksLeftInGoal()} more book
-              {numBooksLeftInGoal() === 1 ? "" : "s"} to meat your goal!
-            </span>
+            <div className="finishedBooksContainer">
+              <div className="content">{finishedBookElements}</div>
+            </div>
           )}
-        </div>
-      </>
-    );
+
+          <div className="message">
+            <div className="icon">
+              <img src={props.altIcon} alt="icon to make you see the message" />
+            </div>
+            {finsihedBooks.length === 0 && (
+              <span>
+                You've got this! Finish a book to make progress tword your goal.
+              </span>
+            )}
+            {finsihedBooks.length != 0 && (
+              <span>
+                You've got this! Finish {numBooksLeftInGoal()} more book
+                {numBooksLeftInGoal() === 1 ? "" : "s"} to meat your goal!
+              </span>
+            )}
+          </div>
+        </>
+      );
+    } else {
+      content = (
+        <BookCounterComponent
+          bookGoal={props.bookGoal}
+          setBookGoal={props.setBookGoal}
+          from="stats_admin"
+        />
+      );
+    }
   }
   return (
     <div className="card">

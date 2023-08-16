@@ -64,7 +64,7 @@ const contentCards = [
 ];
 
 export default function LoadStatsAdmin() {
-  adminRedirect("admin_stats");
+  // adminRedirect("admin_stats");
 
   const { user } = useAuth0();
   // const [settingsDisplayed, setSettingsDisplayed] = useState(false);
@@ -72,10 +72,48 @@ export default function LoadStatsAdmin() {
     { for: "goals", content: [] },
     { for: "books", content: [] },
   ]);
+  const [isInEditMode, setIsInEditMode] = useState(false);
+  const [bookGoal, setBookGoal] = useState(0);
+  const [refreshPage, setRefreshPage] = useState(0);
   // const []
   // function toggleSettings() {
   //   setSettingsDisplayed((prev) => !prev);
   // }
+
+  function toggleEditMode() {
+    if (isInEditMode) {
+      if (bookGoal === allInformation[1].content.book_goal) {
+        setIsInEditMode(false);
+        return;
+      }
+      const localHostURl =
+        "http://localhost:8888/.netlify/functions/update_book_goal";
+      const productionURL =
+        "https://bookkeeperwebsite.netlify.app/.netlify/functions/update_book_goal";
+
+      const requestBody = {
+        user: user.sub,
+        bookGoal: bookGoal,
+      };
+      const options = {
+        method: "POST", // HTTP method (GET, POST, PUT, DELETE, etc.)
+        headers: {
+          "Content-Type": "application/json", // Set the content type to JSON since we're sending JSON data
+        },
+        body: JSON.stringify(requestBody), // Convert the request body to JSON string
+      };
+
+      fetch(localHostURl, options)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setRefreshPage((prev) => (prev += 1));
+        });
+      setIsInEditMode(false);
+    } else {
+      setIsInEditMode(true);
+    }
+  }
 
   console.log(allInformation);
 
@@ -97,16 +135,22 @@ export default function LoadStatsAdmin() {
 
     fetch(localHostURl, options)
       .then((response) => response.json())
-      .then((data) => setAllInformation(data))
+      .then((data) => {
+        setAllInformation(data);
+        setBookGoal(data[1].content.book_goal);
+      })
       .catch((error) => console.log(error));
-  }, []);
+  }, [refreshPage]);
 
   const goalElements = goalCards.map((card) => {
     return (
       <StatsCards
         allInformation={allInformation}
         key={card.cardName}
+        isInEditMode={isInEditMode}
         {...card}
+        bookGoal={bookGoal}
+        setBookGoal={setBookGoal}
       />
     );
   });
@@ -125,7 +169,9 @@ export default function LoadStatsAdmin() {
           <h1>Stats</h1>
           <div className="top">
             <h2>Goals</h2>
-            <span className="editBTN">Edit</span>
+            <span onClick={toggleEditMode} className="editBTN">
+              {isInEditMode ? "Save" : "Edit"}
+            </span>
           </div>
           <div className="stats_cards goal_cards">{goalElements}</div>
         </div>

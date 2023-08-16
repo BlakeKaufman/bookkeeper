@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import crossHairsIcon from "../../../assets/images/icons/location-crosshairs.svg";
-import flagIcon from "../../../assets/images/icons/flag.svg";
+
 import LoadBackButton from "../../../components/loginPathBack";
 
 import "./index.css";
 
 import LoginPathContinue from "../../../components/loginPathContinue";
 import testUserIsLoggedIn from "../../../../auth0/testUserLogin";
+import BookCounterComponent from "../../../components/counterComponent";
 
 export default function LoadBookGoal() {
   testUserIsLoggedIn();
@@ -16,27 +17,27 @@ export default function LoadBookGoal() {
   const navigate = useNavigate();
 
   const [bookGoal, setBookGoal] = useState(0);
-  const AVGBOOKLENGTH = 200; //pages
-  const AVGPAGEREADINGSPEED = 0.75; //mins
+  // const AVGBOOKLENGTH = 200; //pages
+  // const AVGPAGEREADINGSPEED = 0.75; //mins
   const { logout } = useAuth0();
 
-  function changeBookGoal(event) {
-    const changeType = event.target.classList[1];
-    if ((bookGoal === 0) & (changeType === "dec")) return;
+  // function changeBookGoal(event) {
+  //   const changeType = event.target.classList[1];
+  //   if ((bookGoal === 0) & (changeType === "dec")) return;
 
-    setBookGoal((prevGoal) => {
-      if (changeType === "dec") return prevGoal - 1;
-      else return prevGoal + 1;
-    });
-  }
+  //   setBookGoal((prevGoal) => {
+  //     if (changeType === "dec") return prevGoal - 1;
+  //     else return prevGoal + 1;
+  //   });
+  // }
 
-  function changeGoalText() {
-    const dailyMins = ((AVGBOOKLENGTH * bookGoal) / 365) * AVGPAGEREADINGSPEED;
-    const bottomMins = Math.floor(dailyMins);
-    const topMins = Math.ceil(dailyMins);
+  // function changeGoalText() {
+  //   const dailyMins = ((AVGBOOKLENGTH * bookGoal) / 365) * AVGPAGEREADINGSPEED;
+  //   const bottomMins = Math.floor(dailyMins);
+  //   const topMins = Math.ceil(dailyMins);
 
-    return [bottomMins, topMins];
-  }
+  //   return [bottomMins, topMins];
+  // }
 
   function createUserProfile() {
     let userProfile = {};
@@ -47,7 +48,7 @@ export default function LoadBookGoal() {
     localStorage.setItem("userProfile", JSON.stringify(userProfile));
     navigate("/login/reminder");
   }
-  changeGoalText();
+  // changeGoalText();
   return (
     <div className="book-goal">
       <LoadBackButton
@@ -66,7 +67,7 @@ export default function LoadBookGoal() {
           change this later.
         </p>
 
-        <div className="counter-component">
+        {/* <div className="counter-component">
           <div className="counter">
             <div onClick={changeBookGoal} className="option_box dec">
               -
@@ -88,7 +89,12 @@ export default function LoadBookGoal() {
               mins daily to reach this goal
             </p>
           </div>
-        </div>
+        </div> */}
+        <BookCounterComponent
+          bookGoal={bookGoal}
+          setBookGoal={setBookGoal}
+          from="login_bookGoal"
+        />
 
         <LoginPathContinue onClick={createUserProfile} />
       </div>

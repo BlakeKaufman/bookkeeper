@@ -1,0 +1,50 @@
+#counter-component {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#counter-component .counter {
+  width: 100%;
+  max-width: 200px;
+  margin: 30px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#counter-component .option_box {
+  width: 50px;
+  height: 50px;
+
+  line-height: 50px;
+  text-align: center;
+
+  border-radius: 50%;
+
+  font-size: 25px;
+  background-color: rgb(238, 238, 238);
+  cursor: pointer;
+}
+#counter-component .num_books {
+  font-size: 30px;
+}
+
+.reading_time {
+  width: 100%;
+  max-width: max-content;
+  display: flex;
+  align-items: center;
+
+  border: 1px solid rgb(238, 238, 238);
+
+  border-radius: 12px;
+
+  padding: 10px;
+
+  margin: 0 auto;
+}
+.reading_time .icon {
+  height: 20px;
+  width: 20px;
+
+  margin: 0 15px 0 0;
+}
