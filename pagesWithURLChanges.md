@@ -3,3 +3,5 @@ custom book page
 submit reading session page
 Book information popup
 add rating page
+wishlist page
+stats page
