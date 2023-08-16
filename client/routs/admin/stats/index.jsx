@@ -64,9 +64,9 @@ const contentCards = [
 ];
 
 export default function LoadStatsAdmin() {
-  // adminRedirect("admin_stats");
-
+  adminRedirect("admin");
   const { user } = useAuth0();
+
   // const [settingsDisplayed, setSettingsDisplayed] = useState(false);
   const [allInformation, setAllInformation] = useState([
     { for: "goals", content: [] },
@@ -115,9 +115,8 @@ export default function LoadStatsAdmin() {
     }
   }
 
-  console.log(allInformation);
-
   useEffect(() => {
+    if (!user?.sub) return;
     const localHostURl = "http://localhost:8888/.netlify/functions/stats_admin";
     const productionURL =
       "https://bookkeeperwebsite.netlify.app/.netlify/functions/stats_admin";

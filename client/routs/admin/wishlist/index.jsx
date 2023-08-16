@@ -23,6 +23,7 @@ export default function LoadWishlistAdmin() {
   const [removingBooks, setRemovingBooks] = useState([]);
 
   useEffect(() => {
+    if (!user?.sub) return;
     //    setting book list
     const localHostURl =
       "http://localhost:8888/.netlify/functions/get_wishlist_books";

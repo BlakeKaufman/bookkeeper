@@ -41,7 +41,7 @@ const authorOptions = [
 ]; //get pulled from database based on users collections
 
 export default function LoadAdminBooks() {
-  adminRedirect("admin_books");
+  adminRedirect("admin");
   const { user } = useAuth0();
   const [expandedBook, setExpandedBook] = useState("");
 
