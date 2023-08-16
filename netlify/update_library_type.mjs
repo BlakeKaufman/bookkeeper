@@ -34,6 +34,12 @@ export async function handler(event, context) {
 
     // Convert the _id string to ObjectId
     const objectId = new ObjectId(newData._id);
+    // setting finished date if library type is finished
+    let finishedDate;
+    console.log(newData);
+    if (newData.book[9].value.toLowerCase() === "finished") {
+      finishedDate = new Date().getFullYear();
+    }
 
     // updating prev entry in DB
     const result = await collection.updateOne(
@@ -41,7 +47,10 @@ export async function handler(event, context) {
         _id: objectId,
       },
       {
-        $set: { book: newData.book },
+        $set: {
+          book: newData.book,
+          finishedDate: finishedDate ? finishedDate : null,
+        },
       },
       { upsert: true }
     );

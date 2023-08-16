@@ -29,6 +29,12 @@ export async function handler(event, context) {
     // Access the database and collection
     const database = client.db("Users"); // Replace 'mydatabase' with your database name
     const collection = database.collection("books"); // Replace 'mycollection' with your collection name
+    // setting finished date if library type is finished
+
+    console.log(newData);
+    if (newData.book[9].value.toLowerCase() === "finished") {
+      newData["finishedDate"] = new Date().getFullYear();
+    }
 
     // Insert the data
     const result = await collection.insertOne(newData);
