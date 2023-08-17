@@ -204,9 +204,15 @@ export default function LoadBookInfoPopup(props) {
       .filter((child) => child.innerHTML === activeNav.name)[0]
       .getBoundingClientRect();
 
+    const containerMargin = document
+      .querySelector(".bookInfoPopupNav")
+      .getBoundingClientRect().x;
+
+    console.log(barProperties);
+
     const barStyling = {
       width: barProperties.width,
-      transform: `translateX(${barProperties.x - 9}px)`,
+      left: `${barProperties.x - containerMargin}px`,
     };
 
     setNavBar(

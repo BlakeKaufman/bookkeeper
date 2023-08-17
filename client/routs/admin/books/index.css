@@ -1,9 +1,7 @@
 .books_admin {
   width: 100%;
-  max-width: 800px;
-  height: 100%;
 
-  margin: 0 auto;
+  height: 100%;
 
   overflow-y: hidden; /* make scroll none when popup is out */
   overflow-x: hidden;
@@ -14,6 +12,7 @@
 }
 .books_admin .books_content {
   width: 95%;
+  max-width: 900px;
   height: calc(100% - 50px - 65px);
   overflow: hidden scroll;
   margin: 50px auto 65px;
@@ -226,6 +225,7 @@
 /* navbar */
 .books_admin .book_info_popup .topbar {
   width: 100%;
+
   height: fit-content;
   position: sticky;
   top: 0;
@@ -241,6 +241,8 @@
 /* top bar for popup */
 .books_admin .book_info_popup .topbar .top {
   width: 95%;
+  max-width: 900px;
+  margin: 0 auto;
 
   display: flex;
   align-items: center;
@@ -297,6 +299,7 @@
 /* nav container */
 .books_admin .book_info_popup .topbar .nav_container {
   width: 95%;
+  max-width: 600px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -330,12 +333,13 @@
 
   background-color: white;
 
-  transition: transform 0.5s ease, width 0.5s ease;
+  transition: left 0.5s ease, width 0.5s ease;
 }
 
 /* selected book */
 .books_admin .book_info_popup .selected_book {
   width: 95%;
+  max-width: 900px;
 
   height: calc(100% - 35px - 100px);
 
@@ -372,11 +376,13 @@
   margin-bottom: 30px;
 }
 .books_admin .book_info_popup .selected_book .book_options {
+  width: 100%;
+  max-width: 600px;
   display: flex;
 
   align-items: center;
   justify-content: center;
-  margin: auto 0;
+  margin: 0 auto;
 }
 
 .books_admin .book_info_popup .selected_book .book_options .option {
@@ -475,6 +481,7 @@
 
 /* book facts */
 .books_admin .book_info_popup .book_facts {
+  max-width: 900px;
   border-radius: 20px 20px 0 0;
 
   background-color: black;
@@ -484,6 +491,8 @@
   color: white;
 
   position: relative;
+
+  margin: 0 auto;
 }
 
 .books_admin .book_info_popup .book_facts .facts_container h1 {
@@ -1288,4 +1297,11 @@
 }
 .books_admin .start_library h1 {
   margin: unset;
+}
+
+/* media qurries */
+@media (orientation: landscape) and (max-width: 900px) {
+  .books_admin .book_info_popup .selected_book {
+    height: fit-content;
+  }
 }

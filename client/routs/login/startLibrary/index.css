@@ -17,7 +17,7 @@
 /* continue button */
 .start_library .continue_container {
   width: 100%;
-  max-width: 800px;
+
   height: 65px;
 
   /* position: absolute;
@@ -38,6 +38,7 @@
 }
 .start_library .continue_container .continue_BTN {
   width: 95%;
+  max-width: 600px;
 
   height: 40px;
   display: block;

@@ -75,6 +75,11 @@ export default function LoadWishlistAdmin() {
         })
         .filter((book) => book);
 
+      if (JSON.stringify(bookList) == JSON.stringify(newBookList)) {
+        setIsInEditMode(false);
+        return;
+      }
+
       const localHostURl =
         "http://localhost:8888/.netlify/functions/wishlist_update";
       const productionURL =

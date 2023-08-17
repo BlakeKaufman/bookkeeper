@@ -11,9 +11,12 @@
 }
 .nav_bar .nav_container {
   width: 100%;
+  max-width: 900px;
   height: 100%;
   display: flex;
   justify-content: space-around;
+
+  margin: 0 auto;
 }
 .nav_bar .nav_item {
   width: max-content;

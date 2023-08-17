@@ -1,6 +1,6 @@
 .add_book_popup_container {
   width: 100%;
-  max-width: 800px;
+  /* max-width: 800px; */
   height: calc(100% - 65px);
 
   margin: 0 auto;
@@ -26,12 +26,14 @@
 /* topbar */
 .add_book_popup_container .topbar {
   width: 100%;
+  max-width: 900px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   padding: 10px 0;
+  margin: 0 auto;
 }
 
 .add_book_popup_container .topbar span {
@@ -56,6 +58,7 @@
 /* search */
 .add_book_popup_container .book_search {
   width: 100%;
+  max-width: 900px;
   height: 40px;
 
   line-height: 40px;
@@ -65,16 +68,19 @@
   background-color: rgb(234, 234, 234);
 
   padding-left: 20px;
+  margin: 0 auto 20px;
 
-  margin-bottom: 20px;
+  display: block;
 }
 
 /* book container */
 .add_book_popup_container .suggested_books {
+  max-width: 900px;
   height: calc(100% - 120px);
   overflow-y: scroll;
   overflow-x: hidden;
   position: relative;
+  margin: 0 auto;
 }
 
 .add_book_popup_container .suggested_books .books_container {
