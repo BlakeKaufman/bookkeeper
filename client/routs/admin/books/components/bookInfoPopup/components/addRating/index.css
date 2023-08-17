@@ -12,10 +12,11 @@
 
 #addRatingPopup .content {
   width: 100%;
+  max-width: 600px;
   height: 300px;
 
   background-color: white;
-  border-radius: 15px 15px 0 0;
+  border-radius: 15px 15px;
   padding: 20px;
 
   display: flex;

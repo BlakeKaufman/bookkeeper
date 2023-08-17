@@ -102,7 +102,7 @@ export default function SubmitReadingSessionPage(props) {
     const productionURL =
       "https://bookkeeperwebsite.netlify.app/.netlify/functions/reading_session";
 
-    fetch(localHostURl, options)
+    fetch(productionURL, options)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);

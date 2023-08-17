@@ -211,7 +211,7 @@ export default function AddBookPopup(props) {
     const productionURL =
       "https://bookkeeperwebsite.netlify.app/.netlify/functions/book_injection";
 
-    fetch(localHostURL, options)
+    fetch(productionURL, options)
       .then((response) => response.json())
       .then((data) => {
         setIsSubmited([true, true]);

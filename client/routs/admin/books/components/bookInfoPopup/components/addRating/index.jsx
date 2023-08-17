@@ -36,7 +36,7 @@ export default function AddRatingPopup(props) {
       body: JSON.stringify(requestBody),
     };
 
-    fetch(localHostURl, options)
+    fetch(productionHostURL, options)
       .then((response) => response.json())
       .then((data) => {
         props.realoadPage((prev) => (prev += 1));
@@ -54,7 +54,10 @@ export default function AddRatingPopup(props) {
     position: props.isDisplayed ? "fixed" : "absolute",
   };
   const contentSytle = {
-    bottom: props.isDisplayed ? "0" : "-100%",
+    bottom: props.isDisplayed ? "50%" : "-100%",
+    transform: props.isDisplayed
+      ? "transform: translateY(50%)"
+      : "transform: unset",
   };
 
   return (

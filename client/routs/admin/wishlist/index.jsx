@@ -41,7 +41,7 @@ export default function LoadWishlistAdmin() {
       body: JSON.stringify(requestBody), // Convert the request body to JSON string
     };
 
-    fetch(localHostURl, options)
+    fetch(productionURL, options)
       .then((response) => response.json())
       .then((data) => {
         const [descructuredData] = data;
@@ -96,7 +96,7 @@ export default function LoadWishlistAdmin() {
         },
         body: JSON.stringify(requestBody), // Convert the request body to JSON string
       };
-      fetch(localHostURl, options)
+      fetch(productionURL, options)
         .then((response) => response.json())
         .then((data) => {
           setIsInEditMode(false);

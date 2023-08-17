@@ -103,7 +103,7 @@ export default function LoadStatsAdmin() {
         body: JSON.stringify(requestBody), // Convert the request body to JSON string
       };
 
-      fetch(localHostURl, options)
+      fetch(productionURL, options)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -132,7 +132,7 @@ export default function LoadStatsAdmin() {
       body: JSON.stringify(requestBody), // Convert the request body to JSON string
     };
 
-    fetch(localHostURl, options)
+    fetch(productionURL, options)
       .then((response) => response.json())
       .then((data) => {
         setAllInformation(data);

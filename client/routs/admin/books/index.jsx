@@ -167,7 +167,7 @@ export default function LoadAdminBooks() {
     const productionURL =
       "https://bookkeeperwebsite.netlify.app/.netlify/functions/get_user_books";
 
-    fetch(localhostURL, options)
+    fetch(productionURL, options)
       .then((response) => response.json())
       .then((data) => {
         setUserBooks(data);

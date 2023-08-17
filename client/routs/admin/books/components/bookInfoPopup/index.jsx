@@ -286,7 +286,7 @@ export default function LoadBookInfoPopup(props) {
     const productionHostURL =
       "https://bookkeeperwebsite.netlify.app/.netlify/functions/update_library_type";
 
-    fetch(localHostURl, options)
+    fetch(productionHostURL, options)
       .then((response) => response.json())
       .then((data) => {
         props.recalUserBooks();
