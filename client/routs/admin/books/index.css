@@ -121,9 +121,11 @@
   width: max-content;
   display: flex;
   align-items: center;
+
+  margin: 0 auto;
 }
 .books_admin .reading_now .books_container .scroll_container h1 {
-  width: 95vw;
+  width: 100%;
   text-align: center;
 
   word-wrap: break-word;

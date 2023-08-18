@@ -206,7 +206,13 @@ export default function LoadAdminBooks() {
             <span>Reading Now</span>
           </div>
           <div className="books_container">
-            <div className="scroll_container">
+            <div
+              style={{
+                margin:
+                  readingNowBookElements.length === 0 ? "0 auto" : "unset",
+              }}
+              className="scroll_container"
+            >
               {readingNowBookElements.length === 0 && (
                 <h1>You are currently reading no books</h1>
               )}

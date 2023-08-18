@@ -26,7 +26,7 @@ export default function LoadStartLibrary() {
     const productionHostURL =
       "https://bookkeeperwebsite.netlify.app/.netlify/functions/profile_injection";
 
-    fetch(localHostURl, options).then((response) => {
+    fetch(productionHostURL, options).then((response) => {
       if (response.status === 450)
         window.alert(
           "Please Sign out and log into account. **(Refresh Page)**"

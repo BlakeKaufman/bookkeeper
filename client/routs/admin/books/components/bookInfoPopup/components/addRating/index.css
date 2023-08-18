@@ -23,7 +23,7 @@
   flex-direction: column;
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
   transition: bottom 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 /* top */

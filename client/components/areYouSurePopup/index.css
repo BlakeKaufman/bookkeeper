@@ -20,6 +20,7 @@
 }
 #areYouSure .content {
   width: 95%;
+  max-width: 600px;
 
   border-radius: 10px;
 

@@ -56,7 +56,7 @@ export default function AddRatingPopup(props) {
   const contentSytle = {
     bottom: props.isDisplayed ? "50%" : "-100%",
     transform: props.isDisplayed
-      ? "transform: translateY(50%)"
+      ? "transform: translate(-50%,50%)"
       : "transform: unset",
   };
 
